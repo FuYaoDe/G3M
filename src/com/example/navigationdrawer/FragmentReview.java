@@ -32,6 +32,7 @@ public class FragmentReview extends Fragment{
         ViewPager viewPager1 = (ViewPager) root.findViewById(R.id.viewpager1);
 		viewPager1.setAdapter(new MyPagerAdapter());
         return root;
+        //
     }
     
     private class MyPagerAdapter extends PagerAdapter
