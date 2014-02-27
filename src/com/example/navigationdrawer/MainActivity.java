@@ -67,7 +67,7 @@ public class MainActivity extends FragmentActivity {
 			}
 		});
 		FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-		tx.replace(R.id.main,Fragment.instantiate(MainActivity.this, fragments[1]));
+		tx.replace(R.id.main,Fragment.instantiate(MainActivity.this, fragments[0]));
 		tx.commit();
 	}
 	
