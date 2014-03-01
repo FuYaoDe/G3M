@@ -1,22 +1,19 @@
 package com.example.navigationdrawer;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.TextView;
+
  
 public class FragmentReview extends Fragment{
 
-	private static String[] titles = new String[]
+	public static String[] titles = new String[]
 			{ 
 				"英文","數學","物理"
 			};
@@ -31,11 +28,10 @@ public class FragmentReview extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_one, null);
         ViewPager viewPager1 = (ViewPager) root.findViewById(R.id.viewpager1);
-		viewPager1.setAdapter(new MyFragmentPagerAdapter(getFragmentManager()));
+        viewPager1.setAdapter(new MyFragmentPagerAdapter(getFragmentManager()));
         return root;
         //
     }
-    
 	private class MyFragmentPagerAdapter extends FragmentStatePagerAdapter
 	{
 		public MyFragmentPagerAdapter(FragmentManager fm)

@@ -17,7 +17,7 @@
 	                android:layout_width="fill_parent"
 	                android:id="@+id/ItemTitle" 
 	                android:textSize="20dip"
-	                android:text="appointment n.約會；約定">
+	                >
 	        </TextView>
 	
 	        <TextView
@@ -25,7 +25,7 @@
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
 	            android:textColor="#102CAC"
-	            android:text="If you phoned my secretary she'd give you an appointment." 
+	             
 	            >
 	        </TextView>
 	        
@@ -34,7 +34,7 @@
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
 	            android:textColor="#102CAC"
-	            android:text="你給我秘書打個電話, 她就會給你約定個時間。"
+	           
 	            >
 	        </TextView>"
 		</LinearLayout>
