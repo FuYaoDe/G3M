@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,8 +44,16 @@ public class FragmentReview extends Fragment{
 		public Fragment getItem(int position)
 		{
 			Bundle args = new Bundle();
+			Log.d("position", Integer.toString(position));
 			args.putInt("position", position);
-			return Fragment.instantiate(getActivity(), Fragment_list.class.getName(), args);
+			if(position==0)
+			{
+				return Fragment.instantiate(getActivity(), Fragment_english_list.class.getName(), args);
+			}
+			else
+			{
+				return Fragment.instantiate(getActivity(), Fragment_formula_list.class.getName(), args);
+			}
 		}
 
 		@Override
@@ -59,42 +68,5 @@ public class FragmentReview extends Fragment{
 			return titles[position];
 		}
 	}
-	
-//	public static class MyFragment extends Fragment
-//	{		
-//		private static final String TAG = "MyFragment";
-//		public MyFragment()
-//		{
-//			super();
-//		}
-//		
-//		@Override
-//		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//				Bundle savedInstanceState)
-//		{
-//			View view = inflater.inflate(R.layout.english_list, container, false);
-//			ListView listView = (ListView) view.findViewById(R.id.listView1);
-//			/*View text = view.findViewById(android.R.id.text1);
-//			if(text != null && text instanceof TextView)
-//			{
-//				((TextView)text).setText(titles[getArguments().getInt("position")]);
-//			}*/
-//			return view;
-//		}
-//	   
-//		@Override
-//		public void onAttach(Activity activity)
-//		{
-//			super.onAttach(activity);
-//			//Log.d(TAG, "Attached " + getArguments().getInt("position"));
-//		}
-//		
-//		@Override
-//		public void onDetach()
-//		{
-//			//Log.d(TAG, "Detached " + getArguments().getInt("position"));
-//			super.onDetach();
-//		}
-//	}
 }
 

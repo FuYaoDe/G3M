@@ -13,10 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-public class Fragment_list extends ListFragment
+public class Fragment_english_list extends ListFragment
 {
 	private static final List<Item> items = new ArrayList<Item>();
-
+	private static int a;
 	private static class Item
 	{
 		public final String line1;
@@ -59,13 +59,15 @@ public class Fragment_list extends ListFragment
 		{
 			View view = convertView;
 			ViewHolder holder = null;
+			a=position;
 			if(view == null)
 			{
-				view = LayoutInflater.from(getContext()).inflate(R.layout.custom_list, parent, false);
+				view = LayoutInflater.from(getContext()).inflate(R.layout.english_custom_list, parent, false);
 				TextView text1 = (TextView)view.findViewById(R.id.ItemTitle);
 				TextView text2 = (TextView)view.findViewById(R.id.EnText);
 				TextView text3 = (TextView)view.findViewById(R.id.ChText);
 				view.setTag(new ViewHolder(text1, text2,text3));
+				
 			}
 			if(holder == null && view != null)
 			{
@@ -97,6 +99,7 @@ public class Fragment_list extends ListFragment
 		items.add(new Item("recruit  n.新兵,新分子,新會員 vt.使恢復,補充,徵募 vi.徵募新兵,復原", "What is the postage on this parcel?","寄這個包裹要多少錢?"));
 		items.add(new Item("calculator  n.電腦,計算器", "This pocket calculator needs two batteries.","這個袖珍計算器需用兩節乾電池。"));
 		items.add(new Item("secretary  n.秘書,書記,部長,大臣", "She sued for divorce on the grounds of her husband's alleged misconduct with his secretary.","她以其夫與秘書有染為由提起離婚訴訟。"));
+		
 	}
 	
 	@Override
