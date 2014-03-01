@@ -3,18 +3,20 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal" 
-    android:paddingBottom="5dip" 
-   android:paddingLeft="10dip"
-   android:id="@+id/MyListItem" >
+    android:paddingBottom="15dip" 
+    android:paddingTop="8dip"
+   android:paddingLeft="15dip"
+   android:id="@+id/MyListItem" 
+   android:background="@drawable/big_card">
 	    <LinearLayout
 	        android:id="@+id/linearLayout2"
-	        android:layout_width="wrap_content"
 	        android:layout_weight="4"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="vertical" >
 	    	<TextView 
+	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content" 
-	                android:layout_width="fill_parent"
 	                android:id="@+id/ItemTitle" 
 	                android:textSize="20dip"
 	                >
@@ -22,27 +24,25 @@
 	
 	        <TextView
 	            android:id="@+id/EnText"
-	            android:layout_width="fill_parent"
+	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:textColor="#102CAC"
-	             
+	            android:textColor="#0066CC"
 	            >
 	        </TextView>
 	        
 	        <TextView
 	            android:id="@+id/ChText"
-	            android:layout_width="fill_parent"
+	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:textColor="#102CAC"
-	           
+	            android:textColor="#0066CC"
 	            >
 	        </TextView>"
 		</LinearLayout>
 		<ImageView
 		   android:id="@+id/imglogo"
 		   android:layout_weight="1"
-		   android:layout_width="wrap_content"
-		   android:layout_height="wrap_content"
+		   android:layout_width="50dip"
+		   android:layout_height="50dip"
 		   android:src="@drawable/speaker_icon"
 		   android:layout_margin="10dp">
 		</ImageView>

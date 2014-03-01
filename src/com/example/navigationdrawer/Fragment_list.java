@@ -88,11 +88,15 @@ public class Fragment_list extends ListFragment
 	
 	static
 	{
-		items.add(new Item("Title One", "Subtitle One","1"));
-		items.add(new Item("Title Two", "Subtitle Two","2"));
-		items.add(new Item("Title Three", "Subtitle Three","3"));
-		items.add(new Item("Title Four", "Subtitle Four","4"));
-		items.add(new Item("Title Five", "Subtitle Five","5"));
+		//在這裡新增單字
+		//line1 單字+解釋
+		//line2 英文句
+		//line3中文句
+		items.add(new Item("appointment  n.約會；約定", "If you phoned my secretary she'd give you an appointment.","你給我秘書打個電話, 她就會給你約定個時間。"));
+		items.add(new Item("calendar  n.日曆,曆法", "He put the desk calendar on the shelf.","他把檯曆放在書架上。"));
+		items.add(new Item("recruit  n.新兵,新分子,新會員 vt.使恢復,補充,徵募 vi.徵募新兵,復原", "What is the postage on this parcel?","寄這個包裹要多少錢?"));
+		items.add(new Item("calculator  n.電腦,計算器", "This pocket calculator needs two batteries.","這個袖珍計算器需用兩節乾電池。"));
+		items.add(new Item("secretary  n.秘書,書記,部長,大臣", "She sued for divorce on the grounds of her husband's alleged misconduct with his secretary.","她以其夫與秘書有染為由提起離婚訴訟。"));
 	}
 	
 	@Override
