@@ -22,6 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.navigationdrawer.english_detal"></activity>
+        <activity android:name="com.example.navigationdrawer.formula_detal"></activity>
     </application>
 
 </manifest>
