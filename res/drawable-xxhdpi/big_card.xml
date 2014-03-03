@@ -13,7 +13,7 @@
         android:top="5dp">
         <shape android:shape="rectangle" >
             <corners android:radius="3dp" />
-            <solid android:color="#BEBEBE" />
+            <solid android:color="#E0E0E0" />
         </shape>
     </item>
     <item
@@ -26,5 +26,6 @@
             <solid android:color="#FFFFFF" />
         </shape>
     </item>
+
 
 </layer-list>

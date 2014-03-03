@@ -12,12 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Fragment_formula_list extends ListFragment
 {
-	private static final List<Item> items = new ArrayList<Item>();
-	private static int a;
+	private static final List<Item> math_items = new ArrayList<Item>();
+	private static final List<Item> Physical_items = new ArrayList<Item>();
+	private static int PagNum=0;
 	private static class Item
 	{
 		public final String line1;
@@ -46,9 +49,10 @@ public class Fragment_formula_list extends ListFragment
 	private class ItemAdapter extends ArrayAdapter<Item>
 	{
 
-		public ItemAdapter(Context context)
+		public ItemAdapter(Context context,List<Item> item)
 		{
-			super(context, android.R.layout.simple_list_item_2, items);
+			
+			super(context, android.R.layout.simple_list_item_2, item);
 		}
 		
 		@Override
@@ -86,14 +90,16 @@ public class Fragment_formula_list extends ListFragment
 		//在這裡新增單字
 		//line1公式名稱
 		//line2 公式關鍵圖片
-		items.add(new Item("n項級數等差公式", R.drawable.a));
-		items.add(new Item("n項級數比差公式", R.drawable.b));
-			
+		math_items.add(new Item("n項級數等差公式", R.drawable.a));
+		math_items.add(new Item("n項級數等比公式", R.drawable.b));
+		Physical_items.add(new Item("這是物理公式1下面圖示測試", R.drawable.a));
+		Physical_items.add(new Item("這是物理公式2下面圖示測試", R.drawable.b));
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
+		PagNum=getArguments().getInt("position");
 		return inflater.inflate(R.layout.listview, container, false);
 	}
 	
@@ -101,8 +107,22 @@ public class Fragment_formula_list extends ListFragment
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-		ListAdapter adapter = new ItemAdapter(getActivity());
-		setListAdapter(adapter);
+		if(PagNum==1)
+		{
+			ListAdapter adapter = new ItemAdapter(getActivity(),math_items);
+			setListAdapter(adapter);
+		}
+		else
+		{
+			ListAdapter adapter = new ItemAdapter(getActivity(),Physical_items);
+			setListAdapter(adapter);
+		}
+	}
+	public void onListItemClick (ListView l, View v, int position, long id){
+		super.onListItemClick(l, v, position, id);
+		
+		Toast.makeText(getActivity(),"點選位置"+ position+"\n id:"+id+"\n View:"+v+"\n 當前頁面:"+getArguments().getInt("position"),Toast.LENGTH_SHORT).show();
+			
 	}
 }
 

@@ -18,6 +18,7 @@ public class FragmentReview extends Fragment{
 			{ 
 				"英文","數學","物理"
 			};
+	public static int a;
 	
 	public static Fragment newInstance(Context context) {
 		FragmentReview f = new FragmentReview();
@@ -31,7 +32,6 @@ public class FragmentReview extends Fragment{
         ViewPager viewPager1 = (ViewPager) root.findViewById(R.id.viewpager1);
         viewPager1.setAdapter(new MyFragmentPagerAdapter(getFragmentManager()));
         return root;
-        //
     }
 	private class MyFragmentPagerAdapter extends FragmentStatePagerAdapter
 	{
@@ -44,7 +44,7 @@ public class FragmentReview extends Fragment{
 		public Fragment getItem(int position)
 		{
 			Bundle args = new Bundle();
-			Log.d("position", Integer.toString(position));
+			Log.e("position", Integer.toString(position));
 			args.putInt("position", position);
 			if(position==0)
 			{
@@ -65,6 +65,7 @@ public class FragmentReview extends Fragment{
 		@Override
 		public CharSequence getPageTitle(int position)
 		{
+			a= position;
 			return titles[position];
 		}
 	}

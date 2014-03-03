@@ -4,19 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Fragment_english_list extends ListFragment
 {
 	private static final List<Item> items = new ArrayList<Item>();
-	private static int a;
+	
 	private static class Item
 	{
 		public final String line1;
@@ -59,7 +65,6 @@ public class Fragment_english_list extends ListFragment
 		{
 			View view = convertView;
 			ViewHolder holder = null;
-			a=position;
 			if(view == null)
 			{
 				view = LayoutInflater.from(getContext()).inflate(R.layout.english_custom_list, parent, false);
@@ -78,6 +83,7 @@ public class Fragment_english_list extends ListFragment
 				}
 			}
 			Item item = getItem(position);
+
 			if(item != null && holder != null)
 			{
 				holder.text1.setText(item.line1);
@@ -105,6 +111,7 @@ public class Fragment_english_list extends ListFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
+		
 		return inflater.inflate(R.layout.listview, container, false);
 	}
 	
@@ -114,6 +121,13 @@ public class Fragment_english_list extends ListFragment
 		super.onActivityCreated(savedInstanceState);
 		ListAdapter adapter = new ItemAdapter(getActivity());
 		setListAdapter(adapter);
+	}
+	
+	public void onListItemClick (ListView l, View v, int position, long id){
+		super.onListItemClick(l, v, position, id);
+		
+		Toast.makeText(getActivity(),"點選位置"+ position+"\n id:"+id+"\n View:"+v+"\n 當前頁面:"+getArguments().getInt("position"),Toast.LENGTH_SHORT).show();
+			
 	}
 }
 
