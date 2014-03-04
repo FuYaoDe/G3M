@@ -29,40 +29,55 @@ public final class R {
         public static final int drawer_shadow=0x7f020005;
         public static final int ic_drawer=0x7f020006;
         public static final int ic_launcher=0x7f020007;
-        public static final int speaker_icon=0x7f020008;
+        public static final int m=0x7f020008;
+        public static final int n=0x7f020009;
+        public static final int o=0x7f02000a;
+        public static final int speaker_icon=0x7f02000b;
     }
     public static final class id {
         public static final int ChText=0x7f080007;
         public static final int EnText=0x7f080006;
         public static final int ItemTitle=0x7f080005;
         public static final int MyListItem=0x7f080003;
-        public static final int action_settings=0x7f080011;
+        public static final int action_settings=0x7f08001b;
+        public static final int button1=0x7f080011;
+        public static final int button2=0x7f080014;
+        public static final int button3=0x7f080015;
+        public static final int button4=0x7f080016;
         public static final int drawer=0x7f080002;
         public static final int drawer_layout=0x7f080000;
-        public static final int formula=0x7f08000e;
+        public static final int editText1=0x7f080010;
+        public static final int formula=0x7f080017;
         public static final int imageView1=0x7f08000b;
+        public static final int imageView2=0x7f080018;
+        public static final int imageView3=0x7f080019;
         public static final int imglogo=0x7f080008;
         public static final int kk=0x7f08000a;
         public static final int linearLayout2=0x7f080004;
         public static final int listView1=0x7f08000d;
         public static final int main=0x7f080001;
-        public static final int textView1=0x7f08000f;
+        public static final int textView1=0x7f08000e;
+        public static final int textView2=0x7f08000f;
+        public static final int textView3=0x7f080012;
+        public static final int textView4=0x7f080013;
         public static final int tra=0x7f08000c;
-        public static final int viewpager1=0x7f080010;
+        public static final int viewpager1=0x7f08001a;
         public static final int word=0x7f080009;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int english_custom_list=0x7f030001;
         public static final int english_detal=0x7f030002;
-        public static final int formula_custom_list=0x7f030003;
-        public static final int formula_detal=0x7f030004;
-        public static final int fragment_four=0x7f030005;
-        public static final int fragment_one=0x7f030006;
-        public static final int fragment_three=0x7f030007;
-        public static final int fragment_two=0x7f030008;
-        public static final int list=0x7f030009;
-        public static final int listview=0x7f03000a;
+        public static final int english_test=0x7f030003;
+        public static final int formula_custom_list=0x7f030004;
+        public static final int formula_detal=0x7f030005;
+        public static final int formula_test=0x7f030006;
+        public static final int fragment_four=0x7f030007;
+        public static final int fragment_one=0x7f030008;
+        public static final int fragment_three=0x7f030009;
+        public static final int fragment_two=0x7f03000a;
+        public static final int list=0x7f03000b;
+        public static final int listview=0x7f03000c;
     }
     public static final class menu {
         public static final int main=0x7f070000;
