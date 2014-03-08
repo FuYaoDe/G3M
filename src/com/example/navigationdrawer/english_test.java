@@ -23,6 +23,7 @@ public class english_test extends Fragment
 	{
 		View view = inflater.inflate(R.layout.english_test, container, false);
 		View text = view.findViewById(android.R.id.text1);
+	
 		return view;
 	}
 			

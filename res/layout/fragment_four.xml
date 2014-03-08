@@ -1,17 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-   >
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dip"
-        android:layout_marginTop="5dip"
-        android:text="新增題目"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-</LinearLayout>
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical">"
+<LinearLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	   >
+	
+	    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="設定"
+	        android:textAppearance="?android:attr/textAppearanceLarge" 
+	        android:paddingLeft="15dip"
+			android:paddingRight="15dip"/>
+	
+	   <TextView
+	        android:id="@+id/textView2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="推播資料設定"
+	        android:paddingLeft="15dip"
+			android:paddingRight="15dip" 
+			android:paddingTop="15dip"/>
+	
+	    <ListView
+	        android:id="@+id/listView1"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        >
+	    </ListView>
+	    
+	    <TextView
+	        android:id="@+id/textView3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="通知時段設定" 
+	        android:paddingLeft="15dip"
+			android:paddingRight="15dip"
+			android:paddingTop="15dip"/>
+	
+	    <ListView
+	        android:id="@+id/listView2"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        >
+	    </ListView>
+	    
+	    <TextView
+	        android:id="@+id/textView4"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="測驗設定" 
+	        android:paddingLeft="15dip"
+			android:paddingRight="15dip"
+			android:paddingTop="15dip"/>
+	
+	    <ListView
+	        android:id="@+id/listView3"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        >
+	    </ListView>
+	   
+	</LinearLayout>
+</ScrollView>
