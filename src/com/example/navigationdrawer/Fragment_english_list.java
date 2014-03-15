@@ -54,7 +54,6 @@ public class Fragment_english_list extends ListFragment
 	
 	private class ItemAdapter extends ArrayAdapter<Item>
 	{
-
 		public ItemAdapter(Context context)
 		{
 			super(context, android.R.layout.simple_list_item_2, items);
@@ -100,6 +99,7 @@ public class Fragment_english_list extends ListFragment
 		//line1 單字+解釋
 		//line2 英文句
 		//line3中文句
+		
 		items.add(new Item("appointment  n.約會；約定", "If you phoned my secretary she'd give you an appointment.","你給我秘書打個電話, 她就會給你約定個時間。"));
 		items.add(new Item("calendar  n.日曆,曆法", "He put the desk calendar on the shelf.","他把檯曆放在書架上。"));
 		items.add(new Item("recruit  n.新兵,新分子,新會員 vt.使恢復,補充,徵募 vi.徵募新兵,復原", "What is the postage on this parcel?","寄這個包裹要多少錢?"));
@@ -111,7 +111,6 @@ public class Fragment_english_list extends ListFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		
 		return inflater.inflate(R.layout.listview, container, false);
 	}
 	
@@ -121,6 +120,7 @@ public class Fragment_english_list extends ListFragment
 		super.onActivityCreated(savedInstanceState);
 		ListAdapter adapter = new ItemAdapter(getActivity());
 		setListAdapter(adapter);
+		
 	}
 	
 	public void onListItemClick (ListView l, View v, int position, long id){

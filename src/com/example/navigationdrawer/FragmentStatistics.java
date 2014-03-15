@@ -43,21 +43,21 @@ public class FragmentStatistics extends Fragment {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_three, null);
         LinearLayout L1 = (LinearLayout) root.findViewById(R.id.L1);
         LinearLayout L2 = (LinearLayout) root.findViewById(R.id.L2);
-        String[] titles = new String[] { "æŠ˜ç·š1", "æŠ˜ç·š2" }; // å®šç¾©æŠ˜ç·šçš„åç¨±
-        List<double[]> x = new ArrayList<double[]>(); // é»çš„xåæ¨™
-        List<double[]> y = new ArrayList<double[]>(); // é»çš„yåæ¨™
-        // æ•¸å€¼X,Yåæ¨™å€¼è¼¸å…¥
+        String[] titles = new String[] { "§é½u1", "§é½u2" }; // ©w¸q§é½uªº¦WºÙ
+        List<double[]> x = new ArrayList<double[]>(); // ÂIªºx§¤¼Ğ
+        List<double[]> y = new ArrayList<double[]>(); // ÂIªºy§¤¼Ğ
+        // ¼Æ­ÈX,Y§¤¼Ğ­È¿é¤J
         x.add(new double[] { 1, 3, 5, 7, 9, 11 });
         x.add(new double[] { 0, 2, 4, 6, 8, 10 ,13});
         y.add(new double[] { 3, 14, 8, 22, 16, 18 });
         y.add(new double[] { 20, 18, 15, 12, 10, 8 ,5});
-        XYMultipleSeriesDataset dataset = buildDatset(titles, x, y); // å„²å­˜åº§æ¨™å€¼
+        XYMultipleSeriesDataset dataset = buildDatset(titles, x, y); // Àx¦s®y¼Ğ­È
 
-        int[] colors = new int[] { Color.BLUE, Color.GREEN };// æŠ˜ç·šçš„é¡è‰²
-        PointStyle[] styles = new PointStyle[] { PointStyle.CIRCLE, PointStyle.DIAMOND }; // æŠ˜ç·šé»çš„å½¢ç‹€
+        int[] colors = new int[] { Color.BLUE, Color.GREEN };// §é½uªºÃC¦â
+        PointStyle[] styles = new PointStyle[] { PointStyle.CIRCLE, PointStyle.DIAMOND }; // §é½uÂIªº§Îª¬
         XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles, true);
 
-        setChartSettings(renderer, "æ¨æ’­ç·´ç¿’æ¬¡æ•¸", "Xè»¸åç¨±", "Yè»¸åç¨±", 0, 12, 0, 25, Color.BLACK);// å®šç¾©æŠ˜ç·šåœ–
+        setChartSettings(renderer, "±À¼½½m²ß¦¸¼Æ", "X¶b¦WºÙ", "Y¶b¦WºÙ", 0, 12, 0, 25, Color.BLACK);// ©w¸q§é½u¹Ï
         
         GraphicalView chart =(GraphicalView)ChartFactory.getLineChartView(getActivity(), dataset, renderer);
         //setContentView(chart);
@@ -75,37 +75,37 @@ public class FragmentStatistics extends Fragment {
 
     protected void setChartSettings(XYMultipleSeriesRenderer renderer, String title, String xTitle,
             String yTitle, double xMin, double xMax, double yMin, double yMax, int axesColor) {
-        renderer.setChartTitle(title); // æŠ˜ç·šåœ–åç¨±
-        renderer.setChartTitleTextSize(24); // æŠ˜ç·šåœ–åç¨±å­—å½¢å¤§å°
-        renderer.setXTitle(xTitle); // Xè»¸åç¨±
-        renderer.setYTitle(yTitle); // Yè»¸åç¨±
-        renderer.setXAxisMin(xMin); // Xè»¸é¡¯ç¤ºæœ€å°å€¼
-        renderer.setXAxisMax(xMax); // Xè»¸é¡¯ç¤ºæœ€å¤§å€¼
-        renderer.setXLabelsColor(Color.BLACK); // Xè»¸ç·šé¡è‰²
-        renderer.setYAxisMin(yMin); // Yè»¸é¡¯ç¤ºæœ€å°å€¼
-        renderer.setYAxisMax(yMax); // Yè»¸é¡¯ç¤ºæœ€å¤§å€¼
-        renderer.setAxesColor(axesColor); // è¨­å®šåæ¨™è»¸é¡è‰²
-        renderer.setYLabelsColor(0, Color.BLACK); // Yè»¸ç·šé¡è‰²
-        renderer.setLabelsColor(Color.BLACK); // è¨­å®šæ¨™ç±¤é¡è‰²
-        renderer.setMarginsColor(Color.WHITE); // è¨­å®šèƒŒæ™¯é¡è‰²
-        renderer.setShowGrid(true); // è¨­å®šæ ¼ç·š
-        renderer.setDisplayChartValues(true); //æ˜¾ç¤ºæŠ˜çº¿ä¸Šç‚¹çš„æ•°å€¼
-        renderer.setPanEnabled(true, false);  //Xè»¸èƒ½æ²å‹• Yè»¸ç„¡æ³•æ²å‹•
-        renderer.setAxisTitleTextSize(textsize(16));   //XYè»¸åç¨±å¤§å°
-        //renderer.setZoomButtonsVisible(true);  //æ”¾å¤§ç¸®å°æŒ‰éˆ•
+        renderer.setChartTitle(title); // §é½u¹Ï¦WºÙ
+        renderer.setChartTitleTextSize(24); // §é½u¹Ï¦WºÙ¦r§Î¤j¤p
+        renderer.setXTitle(xTitle); // X¶b¦WºÙ
+        renderer.setYTitle(yTitle); // Y¶b¦WºÙ
+        renderer.setXAxisMin(xMin); // X¶bÅã¥Ü³Ì¤p­È
+        renderer.setXAxisMax(xMax); // X¶bÅã¥Ü³Ì¤j­È
+        renderer.setXLabelsColor(Color.BLACK); // X¶b½uÃC¦â
+        renderer.setYAxisMin(yMin); // Y¶bÅã¥Ü³Ì¤p­È
+        renderer.setYAxisMax(yMax); // Y¶bÅã¥Ü³Ì¤j­È
+        renderer.setAxesColor(axesColor); // ³]©w§¤¼Ğ¶bÃC¦â
+        renderer.setYLabelsColor(0, Color.BLACK); // Y¶b½uÃC¦â
+        renderer.setLabelsColor(Color.BLACK); // ³]©w¼ĞÅÒÃC¦â
+        renderer.setMarginsColor(Color.WHITE); // ³]©w­I´ºÃC¦â
+        renderer.setShowGrid(true); // ³]©w®æ½u
+        renderer.setDisplayChartValues(true); //Åã¥Ü§é½u¤WÂIªº¼Æ­È
+        renderer.setPanEnabled(true, false);  //X¶b¯à±²°Ê Y¶bµLªk±²°Ê
+        renderer.setAxisTitleTextSize(textsize(16));   //XY¶b¦WºÙ¤j¤p
+        //renderer.setZoomButtonsVisible(true);  //©ñ¤jÁY¤p«ö¶s
         renderer.setChartTitleTextSize(textsize(24));
-        renderer.setLabelsTextSize(textsize(16));//åˆ»åº¦æ–‡å­—å¤§å°
-        renderer.setLegendTextSize(textsize(13));//åœ–ä¾‹æ–‡å­—å¤§å°
-        renderer.setPointSize(textsize(2));  //é»çš„å¤§å°
-        renderer.setChartValuesTextSize(textsize(10)); //æŠ˜ç·šä¸Šçš„æ•¸å€¼å¤§å°
-        //renderer.seriesRenderer2.setLineWidth(textsize(3)); //ç·šçš„å¯¬åº¦
-        renderer.setZoomEnabled(true, false); //è®“xèƒ½ç¸®æ”¾ Yè»¸ç„¡æ³•ç¸®æ”¾
-        //renderer.setXLabels(0); //è‡ªå®šç¾©Xè»¸åº§æ¨™åç¨±
-        renderer.setMargins(new int[] {textsize(30), textsize(30), textsize(30),textsize(20)});  //ä¸Šå·¦ä¸‹å³é‚Šè·
+        renderer.setLabelsTextSize(textsize(16));//¨è«×¤å¦r¤j¤p
+        renderer.setLegendTextSize(textsize(13));//¹Ï¨Ò¤å¦r¤j¤p
+        renderer.setPointSize(textsize(2));  //ÂIªº¤j¤p
+        renderer.setChartValuesTextSize(textsize(10)); //§é½u¤Wªº¼Æ­È¤j¤p
+        //renderer.seriesRenderer2.setLineWidth(textsize(3)); //½uªº¼e«×
+        renderer.setZoomEnabled(true, false); //Åıx¯àÁY©ñ Y¶bµLªkÁY©ñ
+        //renderer.setXLabels(0); //¦Û©w¸qX¶b®y¼Ğ¦WºÙ
+        renderer.setMargins(new int[] {textsize(30), textsize(30), textsize(30),textsize(20)});  //¤W¥ª¤U¥kÃä¶Z
 
     }
 
-    // å®šç¾©æŠ˜ç·šåœ–çš„æ ¼å¼
+    // ©w¸q§é½u¹Ïªº®æ¦¡
     private XYMultipleSeriesRenderer buildRenderer(int[] colors, PointStyle[] styles, boolean fill) {
         XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
         int length = colors.length;
@@ -114,25 +114,25 @@ public class FragmentStatistics extends Fragment {
             r.setColor(colors[i]);
             r.setPointStyle(styles[i]);
             r.setFillPoints(fill);
-            renderer.addSeriesRenderer(r); //å°‡åº§æ¨™è®Šæˆç·šåŠ å…¥åœ–ä¸­é¡¯ç¤º
+            renderer.addSeriesRenderer(r); //±N®y¼ĞÅÜ¦¨½u¥[¤J¹Ï¤¤Åã¥Ü
         }
         return renderer;
     }
 
-    // è³‡æ–™è™•ç†
+    // ¸ê®Æ³B²z
     private XYMultipleSeriesDataset buildDatset(String[] titles, List<double[]> xValues,
             List<double[]> yValues) {
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 
-        int length = titles.length; // æŠ˜ç·šæ•¸é‡
+        int length = titles.length; // §é½u¼Æ¶q
         for (int i = 0; i < length; i++) {
-            // XYserieså°è±¡,ç”¨æ–¼æä¾›ç¹ªè£½çš„é»é›†åˆçš„è³‡æ–™
-            XYSeries series = new XYSeries(titles[i]); // ä¾æ“šæ¯æ¢ç·šçš„åç¨±æ–°å¢
-            double[] xV = xValues.get(i); // ç²å–ç¬¬iæ¢ç·šçš„è³‡æ–™
+            // XYseries¹ï¶H,¥Î©ó´£¨ÑÃ¸»sªºÂI¶°¦Xªº¸ê®Æ
+            XYSeries series = new XYSeries(titles[i]); // ¨Ì¾Ú¨C±ø½uªº¦WºÙ·s¼W
+            double[] xV = xValues.get(i); // Àò¨ú²Äi±ø½uªº¸ê®Æ
             double[] yV = yValues.get(i);
-            int seriesLength = xV.length; // æœ‰å¹¾å€‹é»
+            int seriesLength = xV.length; // ¦³´X­ÓÂI
 
-            for (int k = 0; k < seriesLength; k++) // æ¯æ¢ç·šè£¡æœ‰å¹¾å€‹é»
+            for (int k = 0; k < seriesLength; k++) // ¨C±ø½u¸Ì¦³´X­ÓÂI
             {
                 series.add(xV[k], yV[k]);
             }
