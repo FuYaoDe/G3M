@@ -2,9 +2,9 @@ package com.example.navigationdrawer;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -22,6 +22,8 @@ public class Fragment_formula_list extends ListFragment
 	private static final List<Item> math_items = new ArrayList<Item>();
 	private static final List<Item> Physical_items = new ArrayList<Item>();
 	private static int PagNum=0;
+	private MySQLite db=null;
+	
 	private static class Item
 	{
 		public final String line1;
@@ -86,16 +88,6 @@ public class Fragment_formula_list extends ListFragment
 		}
 	}
 	
-	static
-	{
-		//在這裡新增單字
-		//line1公式名稱
-		//line2 公式關鍵圖片
-		math_items.add(new Item("n項級數等差公式", R.drawable.a));
-		math_items.add(new Item("n項級數等比公式", R.drawable.b));
-		Physical_items.add(new Item("這是物理公式1下面圖示測試", R.drawable.a));
-		Physical_items.add(new Item("這是物理公式2下面圖示測試", R.drawable.b));
-	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -108,13 +100,38 @@ public class Fragment_formula_list extends ListFragment
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
+		
+		db =new MySQLite(getActivity()); 
+		db.OpenDB();
+		
+		int maxID = db.maxID(PagNum+1);
+		String[] mathName = new String[maxID];
+		String[] mathImag = new String[maxID];
+		String[] physcisName = new String[maxID];
+		String[] physcisImag = new String[maxID];
+
+		
 		if(PagNum==1)
 		{
+			math_items.clear();
+			for(int i = 0 ; i<maxID ; i++){
+				Cursor cursor = db.science_get(i+1,PagNum);
+				mathName[i] =cursor.getString(1);
+				mathImag[i] =cursor.getString(2);
+				math_items.add(new Item(mathName[i], getResources().getIdentifier(mathImag[i], "drawable", "com.example.navigationdrawer")));
+			}
 			ListAdapter adapter = new ItemAdapter(getActivity(),math_items);
 			setListAdapter(adapter);
 		}
 		else
 		{
+			Physical_items.clear();
+			for(int i = 0 ; i<maxID ; i++){
+				Cursor cursor = db.science_get(i+1,PagNum);
+				physcisName[i] =cursor.getString(1);
+				physcisImag[i] =cursor.getString(2);
+				Physical_items.add(new Item(physcisName[i], getResources().getIdentifier(physcisImag[i], "drawable", "com.example.navigationdrawer")));
+			}
 			ListAdapter adapter = new ItemAdapter(getActivity(),Physical_items);
 			setListAdapter(adapter);
 		}
@@ -133,4 +150,3 @@ public class Fragment_formula_list extends ListFragment
 			
 	}
 }
-

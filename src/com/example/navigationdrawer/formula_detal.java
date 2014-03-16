@@ -2,15 +2,18 @@ package com.example.navigationdrawer;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class formula_detal  extends Activity {
-
+    
+	private MySQLite db = null;
 	private TextView text;
 	private ImageView img;
+	private String Science_f = null;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -21,8 +24,14 @@ public class formula_detal  extends Activity {
 		Bundle Main1 =formula_detal.this.getIntent().getExtras();
 		text=(TextView)findViewById(R.id.textView1);
 		img=(ImageView)findViewById(R.id.imageView1);
-		text.setText("使用者點了第:"+Main1.getInt("SelectTab")+"分頁的第"+Main1.getInt("Selectid")+"個list物件");
-		img.setImageResource(R.drawable.c);
+		
+		db = new MySQLite(this);
+		db.OpenDB();
+		Cursor cursor = db.science_get(Main1.getInt("Selectid")+1, Main1.getInt("SelectTab"));
+		Science_f = cursor.getString(3);
+				
+		text.setText(cursor.getString(1));
+		img.setImageResource(getResources().getIdentifier(Science_f, "drawable", "com.example.navigationdrawer"));
 	}
 
 	@Override

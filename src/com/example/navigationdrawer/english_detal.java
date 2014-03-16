@@ -2,9 +2,11 @@ package com.example.navigationdrawer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ListActivity;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -14,20 +16,11 @@ import android.widget.TextView;
 
 public class english_detal extends Activity {
 
+	private MySQLite db=null;
 	private TextView word;
 	private TextView kk;
 	private TextView tra;
 	private ListView listView1;
-	private String[] En=new String[] {"英英句1英英句1英英句1英英句1英英句1英英句1",
-			"英英句2英英句2英英句2英英句2英英句2英英句2",
-			"英英句3英英句3英英句3英英句3英英句3英英句3",
-			"英英句4英英句4英英句4英英句4英英4英英句4",
-			"英英句5英英句5英英句5英英句5英英句5英英句5",};
-	private String[] Ch=new String[] {"英中句1英中句1英中句1英中句1英中句1英中句1",
-			"英中句2英中句2英中句2英中句2英中句2英中句2",
-			"英中句3英中句3英中句3英中句3英中句3英中句3",
-			"英中句4英中句4英中句4英中句4英中4英中句4",
-			"英中句5英中句5英中句5英中句5英中句5英中句5",};
 	
 	ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String,String>>();
 	 private SimpleAdapter adapter;
@@ -42,10 +35,19 @@ public class english_detal extends Activity {
 		kk=(TextView)findViewById(R.id.kk);
 		tra=(TextView)findViewById(R.id.tra);
 		listView1=(ListView)findViewById(R.id.listView1);
+		
+		db =new MySQLite(this); 
+		db.OpenDB();
+		
 		Bundle Main1 =english_detal.this.getIntent().getExtras();
-		word.setText("使用者點了第:"+Main1.getInt("SelectTab")+"分頁的第"+Main1.getInt("Selectid")+"個list物件");
-		kk.setText("KK音標");
-		tra.setText("翻譯");
+		Cursor cursor = db.eng_get(Main1.getInt("Selectid")+1);
+		String[] En=new String[] {cursor.getString(5), cursor.getString(7), cursor.getString(9), cursor.getString(11), cursor.getString(13)};
+		String[] Ch=new String[] {cursor.getString(4), cursor.getString(6), cursor.getString(8), cursor.getString(10), cursor.getString(12)};
+		String ch = cursor.getString(3);
+		ch = ch.replace(" ","\n");
+		word.setText(cursor.getString(1));
+		kk.setText(cursor.getString(2));
+		tra.setText(ch);
 		
 		for(int a=0;a<5;a++)
 		{

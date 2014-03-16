@@ -5,24 +5,23 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class Fragment_english_list extends ListFragment
 {
-	private static final List<Item> items = new ArrayList<Item>();
 	
+	private static final List<Item> items = new ArrayList<Item>();
+	private static MySQLite db=null;
+	private static int maxID;
 	private static class Item
 	{
 		public final String line1;
@@ -54,6 +53,7 @@ public class Fragment_english_list extends ListFragment
 	
 	private class ItemAdapter extends ArrayAdapter<Item>
 	{
+
 		public ItemAdapter(Context context)
 		{
 			super(context, android.R.layout.simple_list_item_2, items);
@@ -92,25 +92,14 @@ public class Fragment_english_list extends ListFragment
 			return view;
 		}
 	}
-	
 	static
 	{
-		//在這裡新增單字
-		//line1 單字+解釋
-		//line2 英文句
-		//line3中文句
-		
-		items.add(new Item("appointment  n.約會；約定", "If you phoned my secretary she'd give you an appointment.","你給我秘書打個電話, 她就會給你約定個時間。"));
-		items.add(new Item("calendar  n.日曆,曆法", "He put the desk calendar on the shelf.","他把檯曆放在書架上。"));
-		items.add(new Item("recruit  n.新兵,新分子,新會員 vt.使恢復,補充,徵募 vi.徵募新兵,復原", "What is the postage on this parcel?","寄這個包裹要多少錢?"));
-		items.add(new Item("calculator  n.電腦,計算器", "This pocket calculator needs two batteries.","這個袖珍計算器需用兩節乾電池。"));
-		items.add(new Item("secretary  n.秘書,書記,部長,大臣", "She sued for divorce on the grounds of her husband's alleged misconduct with his secretary.","她以其夫與秘書有染為由提起離婚訴訟。"));
-		
+
 	}
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
+		
 		return inflater.inflate(R.layout.listview, container, false);
 	}
 	
@@ -118,11 +107,29 @@ public class Fragment_english_list extends ListFragment
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
+		db =new MySQLite(getActivity()); 
+		db.OpenDB();
+		maxID = db.maxID(1);
+		String[] word = new String[maxID];
+		String[] en =  new String[maxID];
+		String[] ch =  new String[maxID];
+		items.clear();
+		for(int i = 0 ; i<maxID ; i++){
+			Cursor cursor = db.eng_get(i+1);
+    	 	word[i]=cursor.getString(1)+"\n"+cursor.getString(3);
+    	 	en[i]=cursor.getString(5);
+    	 	ch[i]=cursor.getString(4);
+    	 	items.add(new Item(word[i] , en[i] , ch[i]));
+		}
+		
 		ListAdapter adapter = new ItemAdapter(getActivity());
 		setListAdapter(adapter);
-		
 	}
-	
+	 @Override
+	 public void onDestroy(){
+	    	super.onDestroy();
+	    	db.CloseDB(); // 關閉資料庫
+	  }
 	public void onListItemClick (ListView l, View v, int position, long id){
 		super.onListItemClick(l, v, position, id);
 		
@@ -137,4 +144,3 @@ public class Fragment_english_list extends ListFragment
 			
 	}
 }
-
