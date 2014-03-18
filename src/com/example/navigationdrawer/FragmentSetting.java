@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -28,10 +29,14 @@ public class FragmentSetting extends Fragment {
     List<Boolean> listShow3; 
    	List<String> list3;
     ListView listview3;
+    SharedPreferences settings;
     
     private static String[] checkText1= new String[]{"英文","數學","物理","笑話"};
+    private static String[] SharedPreferencesText1= new String[]{"En","Math","Phy","Jock"};
     private static String[] checkText2= new String[]{"上床","起床","搭車","下課"};
+    private static String[] SharedPreferencesText2= new String[]{"GoBed","GetUp","UsTran","Class"};
     private static String[] checkText3= new String[]{"涵蓋未出現過的英文單字","涵蓋未出現過的數學公式","涵蓋未出現過的物理公式"};
+    private static String[] SharedPreferencesText3= new String[]{"OldEn","OldMa","OldPhy"};
     
        // 這個用來記錄哪幾個 item 是被打勾的
 	@Override
@@ -50,6 +55,8 @@ public class FragmentSetting extends Fragment {
  
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    	settings = this.getActivity().getSharedPreferences("Set", 0);
+    	
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_four, null);
         listview1 = (ListView) root.findViewById(R.id.listView1);
         listview1.setOnItemClickListener(new OnItemClickListener()
@@ -59,7 +66,8 @@ public class FragmentSetting extends Fragment {
                                                  CheckedTextView chkItem = (CheckedTextView) v.findViewById(R.id.check1);
                                                  chkItem.setChecked(!chkItem.isChecked());
                                                  Toast.makeText(getActivity(), "您點選了第 "+(position+1)+" 項", Toast.LENGTH_SHORT).show();
-                                                 listShow.set(position, chkItem.isChecked());
+                                                 //listShow.set(position, chkItem.isChecked());
+                                                 settings.edit().putBoolean(SharedPreferencesText1[position], !(settings.getBoolean(SharedPreferencesText1[position], true))).commit();
                                             }
                                        }
                                       );
@@ -69,9 +77,10 @@ public class FragmentSetting extends Fragment {
         for(int x=0;x<4;x++)
         {
              list.add(checkText1[x]);
-             listShow.add(true);
+             //listShow.add(true);
+             listShow.add(settings.getBoolean(SharedPreferencesText1[x], true));
         }
-        ListAdapter adapterItem = new setting_ListAdapter(getActivity(), list);
+        ListAdapter adapterItem = new setting_ListAdapter(getActivity(), list,listShow);
         listview1.setAdapter(adapterItem);
         setListViewHeightBasedOnChildren(listview1);
         
@@ -84,7 +93,8 @@ public class FragmentSetting extends Fragment {
                                                  CheckedTextView chkItem = (CheckedTextView) v.findViewById(R.id.check1);
                                                  chkItem.setChecked(!chkItem.isChecked());
                                                  Toast.makeText(getActivity(), "您點選了第 "+(position+1)+" 項", Toast.LENGTH_SHORT).show();
-                                                 listShow2.set(position, chkItem.isChecked());
+                                                 //listShow2.set(position, chkItem.isChecked());
+                                                 settings.edit().putBoolean(SharedPreferencesText2[position], !(settings.getBoolean(SharedPreferencesText2[position], true))).commit();
                                             }
                                        }
                                       );
@@ -94,9 +104,10 @@ public class FragmentSetting extends Fragment {
         for(int x=0;x<4;x++)
         {
              list2.add(checkText2[x]);
-             listShow2.add(true);
+             //listShow2.add(true);
+             listShow2.add(settings.getBoolean(SharedPreferencesText2[x], true));
         }
-        ListAdapter adapterItem1 = new setting_ListAdapter(getActivity(), list2);
+        ListAdapter adapterItem1 = new setting_ListAdapter(getActivity(), list2,listShow2);
         listview2.setAdapter(adapterItem1);
         setListViewHeightBasedOnChildren(listview2);
         
@@ -108,7 +119,9 @@ public class FragmentSetting extends Fragment {
                                                  CheckedTextView chkItem = (CheckedTextView) v.findViewById(R.id.check1);
                                                  chkItem.setChecked(!chkItem.isChecked());
                                                  Toast.makeText(getActivity(), "您點選了第 "+(position+1)+" 項", Toast.LENGTH_SHORT).show();
-                                                 listShow3.set(position, chkItem.isChecked());
+                                                // listShow3.set(position, chkItem.isChecked());
+                                                 settings.edit().putBoolean(SharedPreferencesText3[position], !(settings.getBoolean(SharedPreferencesText3[position], true))).commit();
+                                                 
                                             }
                                        }
                                       );
@@ -118,9 +131,10 @@ public class FragmentSetting extends Fragment {
         for(int x=0;x<3;x++)
         {
              list3.add(checkText3[x]);
-             listShow3.add(true);
+             //listShow3.add(true);
+             listShow3.add(settings.getBoolean(SharedPreferencesText3[x], true));
         }
-        ListAdapter adapterItem2 = new setting_ListAdapter(getActivity(), list3);
+        ListAdapter adapterItem2 = new setting_ListAdapter(getActivity(), list3,listShow3);
         listview3.setAdapter(adapterItem2);
         setListViewHeightBasedOnChildren(listview3);
         return root;

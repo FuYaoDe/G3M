@@ -14,13 +14,15 @@ public class setting_ListAdapter extends BaseAdapter
 {
     private Activity activity;
     private List<String> mList;
+    private List<Boolean> listShow;
      
     private static LayoutInflater inflater = null;
      
-    public setting_ListAdapter(Activity a, List<String> list)
+    public setting_ListAdapter(Activity a, List<String> list, List<Boolean> listShow)
     {
         activity = a;
         mList = list;
+        this.listShow=listShow;
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
  
@@ -50,6 +52,7 @@ public class setting_ListAdapter extends BaseAdapter
         CheckedTextView chkBshow = (CheckedTextView) vi.findViewById(R.id.check1);
          
         chkBshow.setText(mList.get(position).toString());
+        chkBshow.setChecked(listShow.get(position));
          
         return vi;
     }
