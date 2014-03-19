@@ -48,16 +48,14 @@ public class english_test extends Fragment
 		detailed.setOnClickListener(btnDoClick);
 		next.setOnClickListener(btnDoClick);
 		answer.setOnClickListener(btnDoClick);
+		
 		detailed.setEnabled(false);
 		
 		db = new MySQLite(getActivity());
 		db.OpenDB();
 		maxID = db.maxID(1);
 		test_count = new testCOUNT(maxID);
-		Cursor cursor = db.eng_get(test_count.test_id());
-		testWord = cursor.getString(1);
-		test_word.setText(test_Word(testWord));
-		prompt_word.setText(cursor.getString(3));
+		eng_get();
 		
 		return view;
 	}
@@ -67,13 +65,11 @@ public class english_test extends Fragment
 			switch (v.getId()){
 				case R.id.button1:
 					if(userWord.equals(testWord)){
+						word.setText("");
+						eng_get();
+						detailed.setEnabled(false);
 						Toast toast = Toast.makeText(getActivity(), "答案正確!", Toast.LENGTH_LONG);
 						toast.show();
-						word.setText("");
-						Cursor cursor = db.eng_get(test_count.test_id());
-						testWord = cursor.getString(1);
-						test_word.setText(test_Word(testWord));
-						prompt_word.setText(cursor.getString(3));
 					}
 					else{
 						Toast toast = Toast.makeText(getActivity(), "答案錯誤!", Toast.LENGTH_LONG);
@@ -90,13 +86,13 @@ public class english_test extends Fragment
 			  		 startActivity(intent);
 			  		 break;
 				case R.id.button3:
+					next.setText("跳過");
 					word.setText("");
+					detailed.setEnabled(false);
+					answer.setEnabled(true);
 					enter_word.setEnabled(true);
 					word.setInputType(InputType.TYPE_CLASS_TEXT);
-					Cursor cursor = db.eng_get(test_count.test_id());
-					testWord = cursor.getString(1);
-					test_word.setText(test_Word(testWord));
-					prompt_word.setText(cursor.getString(3));
+					eng_get();
 					//word.setInputType(InputType.TYPE_NULL);
 					break;
 				case R.id.button4:
@@ -105,11 +101,19 @@ public class english_test extends Fragment
 					next.setText("下一題");
 					detailed.setEnabled(true);
 					enter_word.setEnabled(false);
+					answer.setEnabled(false);
 					word.setInputType(InputType.TYPE_NULL);
 					break;
 			}
 		}
 	};
+	public void eng_get(){
+		
+		Cursor cursor = db.eng_get(test_count.test_id());
+		testWord = cursor.getString(1);
+		test_word.setText(test_Word(testWord));
+		prompt_word.setText(cursor.getString(3));
+	}
 	@Override
 	public void onAttach(Activity activity)
 	{

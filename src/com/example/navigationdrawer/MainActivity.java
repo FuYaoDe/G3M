@@ -18,6 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 	DrawerLayout drawer;
@@ -58,6 +59,7 @@ public class MainActivity extends FragmentActivity {
 					public void onDrawerClosed(View drawerView){
 						super.onDrawerClosed(drawerView);
 						FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+						
 						tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[pos]));
 						tx.commit();
 					
@@ -83,8 +85,7 @@ public class MainActivity extends FragmentActivity {
 				drawer.openDrawer(GravityCompat.START);
 			else
 				drawer.closeDrawer(GravityCompat.START);
-			 break;
-		default:
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
