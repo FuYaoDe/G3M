@@ -31,11 +31,11 @@ public class FragmentSetting extends Fragment {
     ListView listview3;
     SharedPreferences settings;
     
-    private static String[] checkText1= new String[]{"è‹±æ–‡","æ•¸å­¸","ç‰©ç†","ç¬‘è©±"};
-    private static String[] checkText2= new String[]{"ä¸ŠåºŠ","èµ·åºŠ","æ­è»Š","ä¸‹èª²"};
-    private static String[] checkText3= new String[]{"æ¶µè“‹æœªå‡ºç¾éçš„è‹±æ–‡å–®å­—","æ¶µè“‹æœªå‡ºç¾éçš„æ•¸å­¸å…¬å¼","æ¶µè“‹æœªå‡ºç¾éçš„ç‰©ç†å…¬å¼"};
+    private static String[] checkText1= new String[]{"­^¤å","¼Æ¾Ç","ª«²z","¯º¸Ü"};
+    private static String[] checkText2= new String[]{"¤W§É","°_§É","·f¨®","¤U½Ò"};
+    private static String[] checkText3= new String[]{"²[»\¥¼¥X²{¹Lªº­^¤å³æ¦r","²[»\¥¼¥X²{¹Lªº¼Æ¾Ç¤½¦¡","²[»\¥¼¥X²{¹Lªºª«²z¤½¦¡"};
        
-       // é€™å€‹ç”¨ä¾†è¨˜éŒ„å“ªå¹¾å€‹ item æ˜¯è¢«æ‰“å‹¾çš„
+       // ³o­Ó¥Î¨Ó°O¿ı­ş´X­Ó item ¬O³Q¥´¤Äªº
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -62,7 +62,7 @@ public class FragmentSetting extends Fragment {
                                             {
                                                  CheckedTextView chkItem = (CheckedTextView) v.findViewById(R.id.check1);
                                                  chkItem.setChecked(!chkItem.isChecked());
-                                                 Toast.makeText(getActivity(), "æ‚¨é»é¸äº†ç¬¬ "+(position+1)+" é …", Toast.LENGTH_SHORT).show();
+                                                 Toast.makeText(getActivity(), "±zÂI¿ï¤F²Ä "+(position+1)+" ¶µ", Toast.LENGTH_SHORT).show();
                                                  //listShow.set(position, chkItem.isChecked());
                                                  settings.edit().putBoolean(Variable.SharedPreferencesText1[position], !(settings.getBoolean(Variable.SharedPreferencesText1[position], true))).commit();
                                             }
@@ -89,7 +89,7 @@ public class FragmentSetting extends Fragment {
                                             {
                                                  CheckedTextView chkItem = (CheckedTextView) v.findViewById(R.id.check1);
                                                  chkItem.setChecked(!chkItem.isChecked());
-                                                 Toast.makeText(getActivity(), "æ‚¨é»é¸äº†ç¬¬ "+(position+1)+" é …", Toast.LENGTH_SHORT).show();
+                                                 Toast.makeText(getActivity(), "±zÂI¿ï¤F²Ä "+(position+1)+" ¶µ", Toast.LENGTH_SHORT).show();
                                                  //listShow2.set(position, chkItem.isChecked());
                                                  settings.edit().putBoolean(Variable.SharedPreferencesText2[position], !(settings.getBoolean(Variable.SharedPreferencesText2[position], true))).commit();
                                             }
@@ -115,7 +115,7 @@ public class FragmentSetting extends Fragment {
                                             {
                                                  CheckedTextView chkItem = (CheckedTextView) v.findViewById(R.id.check1);
                                                  chkItem.setChecked(!chkItem.isChecked());
-                                                 Toast.makeText(getActivity(), "æ‚¨é»é¸äº†ç¬¬ "+(position+1)+" é …", Toast.LENGTH_SHORT).show();
+                                                 Toast.makeText(getActivity(), "±zÂI¿ï¤F²Ä "+(position+1)+" ¶µ", Toast.LENGTH_SHORT).show();
                                                 // listShow3.set(position, chkItem.isChecked());
                                                  settings.edit().putBoolean(Variable.SharedPreferencesText3[position], !(settings.getBoolean(Variable.SharedPreferencesText3[position], true))).commit();
                                                  
@@ -138,7 +138,7 @@ public class FragmentSetting extends Fragment {
     }
     
     public void setListViewHeightBasedOnChildren(ListView listView) { 
-        // è·å–ListViewå¯¹åº”çš„Adapter 
+        
         ListAdapter listAdapter = listView.getAdapter(); 
         if (listAdapter == null) { 
             return; 
@@ -146,18 +146,16 @@ public class FragmentSetting extends Fragment {
  
         int totalHeight = 0; 
         for (int i = 0, len = listAdapter.getCount(); i < len; i++) { 
-            // listAdapter.getCount()è¿”å›æ•°æ®é¡¹çš„æ•°ç›® 
+            
             View listItem = listAdapter.getView(i, null, listView); 
-            // è®¡ç®—å­é¡¹View çš„å®½é«˜ 
+            
             listItem.measure(0, 0);  
-            // ç»Ÿè®¡æ‰€æœ‰å­é¡¹çš„æ€»é«˜åº¦ 
+            
             totalHeight += listItem.getMeasuredHeight();  
         } 
  
         ViewGroup.LayoutParams params = listView.getLayoutParams(); 
         params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1)); 
-        // listView.getDividerHeight()è·å–å­é¡¹é—´åˆ†éš”ç¬¦å ç”¨çš„é«˜åº¦ 
-        // params.heightæœ€åå¾—åˆ°æ•´ä¸ªListViewå®Œæ•´æ˜¾ç¤ºéœ€è¦çš„é«˜åº¦ 
         listView.setLayoutParams(params); 
     } 
  
