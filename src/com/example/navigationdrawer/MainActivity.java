@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -39,7 +40,10 @@ public class MainActivity extends FragmentActivity {
 		getActionBar().setHomeButtonEnabled(true);
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActionBar().getThemedContext(), R.layout.list, data);
-	
+		//¶}±Òservice
+		Intent intent = new Intent(MainActivity.this,com.example.navigationdrawer.service.service.class);
+		 startService(intent);
+		 Toast.makeText(getApplicationContext(), "¶}±Ò", Toast.LENGTH_SHORT).show();
 
 		drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
 		drawerToggle = new ActionBarDrawerToggle(this, drawer,
