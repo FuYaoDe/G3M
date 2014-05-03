@@ -7,7 +7,10 @@
     <uses-sdk
         android:minSdkVersion="13"
         android:targetSdkVersion="17" />
-
+	<uses-permission android:name="android.permission.GET_TASKS" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -24,6 +27,16 @@
         </activity>
         <activity android:name="com.example.navigationdrawer.english_detal"></activity>
         <activity android:name="com.example.navigationdrawer.formula_detal"></activity>
+        <!-- 記得這裡-->
+        <receiver android:enabled="true" android:name=".Receive_BootCompleted">
+	     	<intent-filter>
+	            <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+	    	</intent-filter>
+		</receiver>
+		
+        <service android:name="com.example.navigationdrawer.service.service"/>
+        <service android:name="com.example.navigationdrawer.service.Notification" />
+        
     </application>
 
 </manifest>
