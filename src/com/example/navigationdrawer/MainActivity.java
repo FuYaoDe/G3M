@@ -3,8 +3,11 @@ package com.example.navigationdrawer;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -38,7 +41,11 @@ public class MainActivity extends FragmentActivity {
 		setContentView(R.layout.activity_main);
 		getActionBar().setDisplayShowHomeEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
-
+		// ActionBar ÃC¦â
+		ActionBar ab = getActionBar(); 
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#032E5C"));     
+        ab.setBackgroundDrawable(colorDrawable);
+        
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActionBar().getThemedContext(), R.layout.list, data);
 		//¶}±Òservice
 		Intent intent = new Intent(MainActivity.this,com.example.navigationdrawer.service.service.class);

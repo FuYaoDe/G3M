@@ -106,6 +106,7 @@ public class formula_test extends Fragment
 					enter_word.setEnabled(true);
 					answer_btn.setEnabled(true);
 					word.setInputType(InputType.TYPE_CLASS_TEXT);
+					answer_img.setImageDrawable(null); 
 					if(PagNum == 1){//PagNum == 1 ,math; else physics;
 						math_get();
 					}

@@ -7,6 +7,8 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -31,6 +33,9 @@ public class english_detal extends Activity {
 		setContentView(R.layout.english_detal);
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		// ActionBar ÃC¦â
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#032E5C"));     
+        actionBar.setBackgroundDrawable(colorDrawable);
 		word = (TextView)findViewById(R.id.word);
 		kk=(TextView)findViewById(R.id.kk);
 		tra=(TextView)findViewById(R.id.tra);

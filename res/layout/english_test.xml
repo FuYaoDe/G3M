@@ -46,7 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="送出" />
+            android:text="送出" 
+            style="@style/btnStyleArsenic"/>
 
     </LinearLayout>
 
@@ -92,20 +93,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="詳細" />
+            android:text="詳細" 
+            android:layout_marginRight="10px"
+	            android:layout_marginLeft="10px"
+	            style="@style/btnStyleArsenic"/>
 
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="跳過" />
+            android:text="跳過" 
+            android:layout_marginRight="10px"
+	        android:layout_marginLeft="10px"
+	        style="@style/btnStyleArsenic"/>
         <Button
             android:id="@+id/button4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="解答" />
+            android:text="解答" 
+            android:layout_marginRight="10px"
+	        android:layout_marginLeft="10px"
+	        style="@style/btnStyleArsenic"/>
 
     </LinearLayout>
 
