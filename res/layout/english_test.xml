@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical" 
     android:paddingLeft="15dip"
-    android:paddingRight="15dip">
+    android:paddingRight="15dip"
+    android:background="#ffffff">
 
     <TextView
         android:id="@+id/textView1"
@@ -68,15 +69,17 @@
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Medium Text"
+            android:layout_weight="4"
+            android:text="英文單字解釋"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:layout_weight="1"
             android:src="@drawable/speaker_icon" />
 
     </LinearLayout>

@@ -3,6 +3,8 @@ package com.example.navigationdrawer;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -20,6 +22,8 @@ public class formula_detal  extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.formula_detal);
 		ActionBar actionBar = getActionBar();
+		ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#032E5C"));     
+		actionBar.setBackgroundDrawable(colorDrawable);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		Bundle Main1 =formula_detal.this.getIntent().getExtras();
 		text=(TextView)findViewById(R.id.textView1);
