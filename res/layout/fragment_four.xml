@@ -42,7 +42,12 @@
 	        android:paddingLeft="15dip"
 			android:paddingRight="15dip"
 			android:paddingTop="15dip"/>
-	
+		<ListView
+	        android:id="@+id/listView4"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        >
+	    </ListView>
 	    <ListView
 	        android:id="@+id/listView2"
 	        android:layout_width="match_parent"

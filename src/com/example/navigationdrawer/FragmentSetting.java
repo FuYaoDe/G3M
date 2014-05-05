@@ -25,6 +25,7 @@ public class FragmentSetting extends Fragment {
     List<Boolean> listShow2; 
 	List<String> list2;
     ListView listview2;
+    ListView listview4;
     
     List<Boolean> listShow3; 
    	List<String> list3;
