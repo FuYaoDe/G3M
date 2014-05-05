@@ -1,6 +1,7 @@
 package com.example.navigationdrawer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -15,6 +16,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckedTextView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
  
 public class FragmentSetting extends Fragment {
@@ -35,7 +37,7 @@ public class FragmentSetting extends Fragment {
     private static String[] checkText1= new String[]{"英文","數學","物理","笑話"};
     private static String[] checkText2= new String[]{"上床","起床","搭車","下課"};
     private static String[] checkText3= new String[]{"涵蓋未出現過的英文單字","涵蓋未出現過的數學公式","涵蓋未出現過的物理公式"};
-       
+    private static String[] TimeTitle = new String[]{"開始時段","結束時段"};
        // 這個用來記錄哪幾個 item 是被打勾的
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -109,6 +111,24 @@ public class FragmentSetting extends Fragment {
         listview2.setAdapter(adapterItem1);
         setListViewHeightBasedOnChildren(listview2);
         
+        listview4 = (ListView) root.findViewById(R.id.listView4);
+        ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String,String>>();
+        for(int i=0; i<TimeTitle.length; i++){
+        	 HashMap<String,String> item = new HashMap<String,String>();
+        	 item.put( "title", TimeTitle[i]);
+        	 item.put( "time",TimeTitle[i] );
+        	 list.add( item );
+        	 }
+        listview4.setAdapter(new SimpleAdapter( 
+        		getActivity(),
+        		list,
+        		android.R.layout.simple_expandable_list_item_2,
+        		new String[] { "title","time" },
+        		new int[] { android.R.id.text1, android.R.id.text2 }
+        		)
+        	);
+        setListViewHeightBasedOnChildren(listview4);
+        
         listview3 = (ListView) root.findViewById(R.id.listView3);
         listview3.setOnItemClickListener(new OnItemClickListener()
                                        {
@@ -123,7 +143,7 @@ public class FragmentSetting extends Fragment {
                                             }
                                        }
                                       );
- 
+        
         listShow3 = new ArrayList<Boolean>();
         list3 = new ArrayList<String>();
         for(int x=0;x<3;x++)

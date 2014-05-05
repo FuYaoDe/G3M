@@ -31,6 +31,7 @@
 	        android:id="@+id/listView1"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
 	        >
 	    </ListView>
 	    
@@ -52,6 +53,7 @@
 	        android:id="@+id/listView2"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
 	        >
 	    </ListView>
 	    
@@ -68,6 +70,7 @@
 	        android:id="@+id/listView3"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
 	        >
 	    </ListView>
 	   
