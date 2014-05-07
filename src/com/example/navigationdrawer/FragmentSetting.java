@@ -38,6 +38,7 @@ public class FragmentSetting extends Fragment {
     private static String[] checkText2= new String[]{"上床","起床","搭車","下課"};
     private static String[] checkText3= new String[]{"涵蓋未出現過的英文單字","涵蓋未出現過的數學公式","涵蓋未出現過的物理公式"};
     private static String[] TimeTitle = new String[]{"開始時段","結束時段"};
+    private  int[] Time = new int[2];
        // 這個用來記錄哪幾個 item 是被打勾的
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -112,13 +113,17 @@ public class FragmentSetting extends Fragment {
         setListViewHeightBasedOnChildren(listview2);
         
         listview4 = (ListView) root.findViewById(R.id.listView4);
+        for(int i = 0 ;i<Time.length;i++)
+        	Time[i]=settings.getInt(Variable.SharedPreferencesTime[i], 0);
         ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String,String>>();
         for(int i=0; i<TimeTitle.length; i++){
         	 HashMap<String,String> item = new HashMap<String,String>();
         	 item.put( "title", TimeTitle[i]);
-        	 item.put( "time",TimeTitle[i] );
+        	// item.put( "time",TimeTitle[i] );
+        	 item.put("time",(Time[i]/60)+":"+String.format("%02d",(Time[i]%60)));
         	 list.add( item );
         	 }
+        
         listview4.setAdapter(new SimpleAdapter( 
         		getActivity(),
         		list,
