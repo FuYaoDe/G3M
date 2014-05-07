@@ -122,9 +122,9 @@ public class FragmentSetting extends Fragment {
         listview4.setAdapter(new SimpleAdapter( 
         		getActivity(),
         		list,
-        		android.R.layout.simple_expandable_list_item_2,
+        		R.layout.time_setting_list,
         		new String[] { "title","time" },
-        		new int[] { android.R.id.text1, android.R.id.text2 }
+        		new int[] { R.id.textView1, R.id.textView2 }
         		)
         	);
         setListViewHeightBasedOnChildren(listview4);

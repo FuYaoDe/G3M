@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+	<CheckedTextView
+      android:id="@+id/check1"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center_vertical"
+      android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+      android:text="CheckedTextView"
+      android:textAppearance="?android:attr/textAppearanceMedium" 
+      android:paddingTop="10dip"
+      android:paddingBottom="10dip"
+      android:paddingLeft="25dip"
+	  android:paddingRight="25dip"
+	  />
+	
+</LinearLayout>

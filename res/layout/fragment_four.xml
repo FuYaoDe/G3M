@@ -42,7 +42,8 @@
 	        android:text="通知時段設定" 
 	        android:paddingLeft="15dip"
 			android:paddingRight="15dip"
-			android:paddingTop="15dip"/>
+			android:paddingTop="15dip"
+			android:paddingBottom="10dip"/>
 		<ListView
 	        android:id="@+id/listView4"
 	        android:layout_width="match_parent"
@@ -64,7 +65,8 @@
 	        android:text="測驗設定" 
 	        android:paddingLeft="15dip"
 			android:paddingRight="15dip"
-			android:paddingTop="15dip"/>
+			android:paddingTop="15dip"
+			/>
 	
 	    <ListView
 	        android:id="@+id/listView3"

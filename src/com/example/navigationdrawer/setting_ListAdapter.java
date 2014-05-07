@@ -46,7 +46,7 @@ public class setting_ListAdapter extends BaseAdapter
         View vi = convertView;
         if(convertView==null)
         {
-            vi = inflater.inflate(R.layout.setting_list, null);
+            vi = inflater.inflate(R.layout.check_setting_list, null);
         }
          
         CheckedTextView chkBshow = (CheckedTextView) vi.findViewById(R.id.check1);
