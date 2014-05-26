@@ -4,6 +4,7 @@ import com.example.navigationdrawer.MainActivity;
 import com.example.navigationdrawer.MySQLite;
 import com.example.navigationdrawer.R;
 import com.example.navigationdrawer.Variable;
+import com.example.navigationdrawer.english_detal;
 import com.example.navigationdrawer.testCOUNT;
 
 import android.app.IntentService;
@@ -15,6 +16,8 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.DisplayMetrics;
@@ -41,14 +44,33 @@ public class Notification extends IntentService{
 	private void En_Notification(){
 		mNotificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		
-		Intent dismissIntent = new Intent(this, Notification.class);
-        dismissIntent.setAction("close");
-        PendingIntent piDismiss = PendingIntent.getService(this, 0, dismissIntent, 0);
-        
-        db = new MySQLite(this);
+		db = new MySQLite(this);
 		db.OpenDB();
         eng_count = new testCOUNT(db.maxID(1));
         cursor_eng = db.eng_get(eng_count.test_id());
+		
+		Intent againIntent = new Intent(this, Notification.class);
+		againIntent.setAction(Variable.English);
+        PendingIntent again = PendingIntent.getService(this, 0, againIntent, 0);
+        
+        Intent detailIntent = new Intent(this,english_detal.class); 
+ 		Bundle bundle = new Bundle();
+        bundle.putInt("SelectTab",0);
+        bundle.putInt("Selectid",eng_count.now_id-1);    //這裡id -1 配合你的detail介面
+        detailIntent.putExtras(bundle);
+        detailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);   //清除已經推撥的OR新增推播
+        // Because clicking the notification opens a new ("special") activity, there's
+        // no need to create an artificial back stack.
+        PendingIntent detail = PendingIntent.getActivity(
+                this,
+                0,
+                detailIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+        );
+        
+        Intent voiceIntent = new Intent(this, Notification.class);
+        voiceIntent.setAction("voice");
+        PendingIntent voice = PendingIntent.getService(this, 0, voiceIntent, 0);
         
 		 builder =
 	                new NotificationCompat.Builder(this)
@@ -66,26 +88,13 @@ public class Notification extends IntentService{
 	                .setStyle(new NotificationCompat.BigTextStyle()
 	                     .bigText(cursor_eng.getString(5)+"\n"+cursor_eng.getString(4)))
 	                .addAction (android.R.drawable.ic_media_play,
-	                        "下一個", piDismiss)
+	                        "下一個", again)
 	                .addAction (android.R.drawable.ic_menu_edit,
-	                        "詳細", piDismiss)
+	                        "詳細", detail)
 	                .addAction (android.R.drawable.ic_lock_silent_mode_off,
-	    	        		"發音", piDismiss);
+	    	        		"發音", voice);
 		 
-		 Intent resultIntent = new Intent(this, MainActivity.class);
-         resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);   //清除已經推撥的OR新增推播
-
-         // Because clicking the notification opens a new ("special") activity, there's
-         // no need to create an artificial back stack.
-         PendingIntent resultPendingIntent =
-                 PendingIntent.getActivity(
-                 this,
-                 0,
-                 resultIntent,
-                 PendingIntent.FLAG_UPDATE_CURRENT
-         );
-         
-		 builder.setContentIntent(resultPendingIntent);
+		 builder.setContentIntent(detail);
 		 mNotificationManager.notify(1, builder.build());
 	}
 	
@@ -159,6 +168,7 @@ public class Notification extends IntentService{
 		 mNotificationManager.notify(1, builder.build());
 	}
 
+	
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		// TODO Auto-generated method stub
@@ -177,6 +187,12 @@ public class Notification extends IntentService{
 		else if(action.equals("close"))
 		{	
 			nm.cancel(1);
+		}
+		else if(action.equals("voice")){
+			 SoundPool soundPool;
+			 soundPool= new SoundPool(10,AudioManager.STREAM_SYSTEM,5);
+			 soundPool.load(this,R.raw.test,1);
+			 soundPool.play(1,1, 1, 0, 0, 1);
 		}
 	}
 }

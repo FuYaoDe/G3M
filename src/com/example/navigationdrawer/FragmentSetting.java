@@ -7,7 +7,11 @@ import java.util.List;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,10 +115,67 @@ public class FragmentSetting extends Fragment {
         ListAdapter adapterItem1 = new setting_ListAdapter(getActivity(), list2,listShow2);
         listview2.setAdapter(adapterItem1);
         setListViewHeightBasedOnChildren(listview2);
-        
         listview4 = (ListView) root.findViewById(R.id.listView4);
+        final int mHour =0;
+        final int mMinute = 0;
         for(int i = 0 ;i<Time.length;i++)
+        {
         	Time[i]=settings.getInt(Variable.SharedPreferencesTime[i], 0);
+        }
+        /** This handles the message send from TimePickerDialogFragment on setting Time */
+        final Handler mHandler = new Handler(){
+            @Override
+            public void handleMessage(Message m){
+                /** Creating a bundle object to pass currently set Time to the fragment */
+                Bundle b = m.getData();
+     
+                /** Getting the Hour of day from bundle */
+                int mHour = b.getInt("set_hour");
+     
+                /** Getting the Minute of the hour from bundle */
+                int mMinute = b.getInt("set_minute");
+     
+                /** Displaying a short time message containing time set by Time picker dialog fragment */
+                Toast.makeText(getActivity(), b.getString("set_time"), Toast.LENGTH_SHORT).show();
+            }
+        };
+     
+        listview4.setOnItemClickListener(new OnItemClickListener()
+        {
+             public void onItemClick(AdapterView<?> parent, View v, int position, long id)
+             {
+                  Toast.makeText(getActivity(), "您點選了第 "+(position+1)+" 項", Toast.LENGTH_SHORT).show();
+                  //listShow2.set(position, chkItem.isChecked());
+                  /** Creating a bundle object to pass currently set time to the fragment */
+                  Bundle b = new Bundle();
+                  
+				/** Adding currently set hour to bundle object */
+                  b.putInt("set_hour", mHour);
+   
+				/** Adding currently set minute to bundle object */
+                  b.putInt("set_minute", mMinute);
+                  
+                  /** Instantiating TimePickerDialogFragment */
+                  TimePickerDialogFragment timePicker = new TimePickerDialogFragment(mHandler);
+                  
+                  /** Setting the bundle object on timepicker fragment */
+                  timePicker.setArguments(b);
+   
+                  /** Getting fragment manger for this activity */
+                  FragmentManager fm = getFragmentManager();
+   
+                  /** Starting a fragment transaction */
+                  FragmentTransaction ft = fm.beginTransaction();
+   
+                  /** Adding the fragment object to the fragment transaction */
+                  ft.add(timePicker, "time_picker");
+   
+                  /** Opening the TimePicker fragment */
+                  ft.commit();
+                  
+             }
+        }
+       );
         ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String,String>>();
         for(int i=0; i<TimeTitle.length; i++){
         	 HashMap<String,String> item = new HashMap<String,String>();

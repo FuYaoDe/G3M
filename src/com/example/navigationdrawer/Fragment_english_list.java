@@ -136,8 +136,8 @@ public class Fragment_english_list extends ListFragment
 		 Intent intent = new Intent(); 
   		 intent.setClass(getActivity(),english_detal.class);
   		 Bundle bundle = new Bundle();
-         bundle.putInt("SelectTab",getArguments().getInt("position"));  //把當前點擊的節目代號傳過去
-         bundle.putInt("Selectid",position);   //把節目名稱傳過去
+         bundle.putInt("SelectTab",getArguments().getInt("position"));
+         bundle.putInt("Selectid",position);   
          intent.putExtras(bundle);
   		 startActivity(intent);
 		//Toast.makeText(getActivity(),"點選位置"+ position+"\n id:"+id+"\n View:"+v+"\n 當前頁面:"+getArguments().getInt("position"),Toast.LENGTH_SHORT).show();
