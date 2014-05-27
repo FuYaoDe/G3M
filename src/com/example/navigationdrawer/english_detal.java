@@ -40,7 +40,7 @@ public class english_detal extends Activity {
 		kk=(TextView)findViewById(R.id.kk);
 		tra=(TextView)findViewById(R.id.tra);
 		listView1=(ListView)findViewById(R.id.listView1);
-		
+		 
 		db =new MySQLite(this); 
 		db.OpenDB();
 		
