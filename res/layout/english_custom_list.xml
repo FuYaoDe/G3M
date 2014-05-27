@@ -36,14 +36,18 @@
 	            android:layout_height="wrap_content"
 	            android:textColor="#0066CC"
 	            >
-	        </TextView>"
+	        </TextView>
 		</LinearLayout>
-		<ImageView
-		   android:id="@+id/imglogo"
+		<Button
+		   android:id="@+id/voice"
 		   android:layout_weight="1"
 		   android:layout_width="50dip"
 		   android:layout_height="50dip"
 		   android:src="@drawable/speaker_icon"
-		   android:layout_margin="10dp">
-		</ImageView>
+		   android:layout_margin="10dp"
+		   android:focusable="false"
+		   android:drawableTop="@drawable/speaker_icon"
+		   android:background="#00000000"
+		   >
+		</Button>
 </LinearLayout>

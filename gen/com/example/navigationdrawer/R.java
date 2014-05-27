@@ -287,7 +287,6 @@ public final class R {
         public static final int imageView1=0x7f09000c;
         public static final int imageView2=0x7f090019;
         public static final int imageView3=0x7f09001a;
-        public static final int imglogo=0x7f090009;
         public static final int kk=0x7f09000b;
         public static final int linearLayout2=0x7f090005;
         public static final int listView1=0x7f09000e;
@@ -301,6 +300,7 @@ public final class R {
         public static final int textView4=0x7f090014;
         public static final int tra=0x7f09000d;
         public static final int viewpager1=0x7f09001e;
+        public static final int voice=0x7f090009;
         public static final int word=0x7f09000a;
     }
     public static final class layout {

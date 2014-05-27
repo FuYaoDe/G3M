@@ -6,12 +6,18 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,19 +47,38 @@ public class Fragment_english_list extends ListFragment
 		public final TextView text1;
 		public final TextView text2;
 		public final TextView text3;
+		public final Button voiceButon;
 		
 		
-		public ViewHolder(TextView text1, TextView text2,TextView text3)
+		public ViewHolder(TextView text1, TextView text2,TextView text3,
+				Button voiceButton)
 		{
 			this.text1 = text1;
 			this.text2 = text2;
 			this.text3 = text3;
+			this.voiceButon=voiceButton;
 		}
+
+
+	}
+	public class ItemButton_Click implements OnClickListener {
+	    private int position;
+	     
+	    ItemButton_Click(int pos) {
+	        position = pos;
+	    }
+	 
+	    public void onClick(View v) {
+	        Log.i("«ö¨ì«ö¶s",position+"");
+	         SoundPool soundPool;
+			 soundPool= new SoundPool(10,AudioManager.STREAM_SYSTEM,5);
+			 soundPool.load(getActivity(),R.raw.test,1);
+			 soundPool.play(1,1, 1, 0, 0, 1);
+	    }
 	}
 	
 	private class ItemAdapter extends ArrayAdapter<Item>
 	{
-
 		public ItemAdapter(Context context)
 		{
 			super(context, android.R.layout.simple_list_item_2, items);
@@ -64,13 +89,16 @@ public class Fragment_english_list extends ListFragment
 		{
 			View view = convertView;
 			ViewHolder holder = null;
+			
 			if(view == null)
 			{
 				view = LayoutInflater.from(getContext()).inflate(R.layout.english_custom_list, parent, false);
 				TextView text1 = (TextView)view.findViewById(R.id.ItemTitle);
 				TextView text2 = (TextView)view.findViewById(R.id.EnText);
 				TextView text3 = (TextView)view.findViewById(R.id.ChText);
-				view.setTag(new ViewHolder(text1, text2,text3));
+				Button VoiceButton = (Button)view.findViewById(R.id.voice);
+				holder = new ViewHolder(text1, text2,text3,VoiceButton);
+				view.setTag(holder);
 				
 			}
 			if(holder == null && view != null)
@@ -81,6 +109,9 @@ public class Fragment_english_list extends ListFragment
 					holder = (ViewHolder)tag;
 				}
 			}
+			
+			holder.voiceButon.setOnClickListener(new ItemButton_Click( position));
+			
 			Item item = getItem(position);
 
 			if(item != null && holder != null)
@@ -101,6 +132,7 @@ public class Fragment_english_list extends ListFragment
 	{
 		
 		return inflater.inflate(R.layout.listview, container, false);
+		
 	}
 	
 	@Override
@@ -132,7 +164,7 @@ public class Fragment_english_list extends ListFragment
 	  }
 	public void onListItemClick (ListView l, View v, int position, long id){
 		super.onListItemClick(l, v, position, id);
-		
+		Log.i("«ö¨ìlist",position+"");
 		 Intent intent = new Intent(); 
   		 intent.setClass(getActivity(),english_detal.class);
   		 Bundle bundle = new Bundle();
