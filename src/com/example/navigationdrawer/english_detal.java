@@ -43,7 +43,7 @@ public class english_detal extends Activity {
 		 
 		db =new MySQLite(this); 
 		db.OpenDB();
-		
+		 
 		Bundle Main1 =english_detal.this.getIntent().getExtras();
 		Cursor cursor = db.eng_get(Main1.getInt("Selectid")+1);
 		String[] En=new String[] {cursor.getString(5), cursor.getString(7), cursor.getString(9), cursor.getString(11), cursor.getString(13)};
