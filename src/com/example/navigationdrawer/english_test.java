@@ -53,7 +53,7 @@ public class english_test extends Fragment
 		
 		db = new MySQLite(getActivity());
 		db.OpenDB();
-		maxID = db.maxID(1);
+		maxID = db.maxID(4);
 		test_count = new testCOUNT(maxID);
 		eng_get();
 		
@@ -62,6 +62,8 @@ public class english_test extends Fragment
 	private Button.OnClickListener btnDoClick = new Button.OnClickListener(){
 		public void onClick(View v){
 			String userWord = word.getText().toString();
+			userWord.toUpperCase(); /*update*/
+			testWord.toUpperCase();	/*update*/
 			switch (v.getId()){
 				case R.id.button1:
 					if(userWord.equals(testWord)){
@@ -108,8 +110,8 @@ public class english_test extends Fragment
 		}
 	};
 	public void eng_get(){
-		
-		Cursor cursor = db.eng_get(test_count.test_id());
+		Cursor old_cursor = db.eng_get(test_count.test_id(), 2);
+		Cursor cursor = db.eng_get(old_cursor.getInt(1), 1);
 		testWord = cursor.getString(1);
 		test_word.setText(test_Word(testWord));
 		prompt_word.setText(cursor.getString(3));

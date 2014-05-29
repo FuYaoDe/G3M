@@ -40,12 +40,12 @@ public class english_detal extends Activity {
 		kk=(TextView)findViewById(R.id.kk);
 		tra=(TextView)findViewById(R.id.tra);
 		listView1=(ListView)findViewById(R.id.listView1);
-		 
+		
 		db =new MySQLite(this); 
 		db.OpenDB();
-		 
+		
 		Bundle Main1 =english_detal.this.getIntent().getExtras();
-		Cursor cursor = db.eng_get(Main1.getInt("Selectid")+1);
+		Cursor cursor = db.eng_get(db.maxID(4)-Main1.getInt("Selectid"), 2); /*update*/
 		String[] En=new String[] {cursor.getString(5), cursor.getString(7), cursor.getString(9), cursor.getString(11), cursor.getString(13)};
 		String[] Ch=new String[] {cursor.getString(4), cursor.getString(6), cursor.getString(8), cursor.getString(10), cursor.getString(12)};
 		String ch = cursor.getString(3);

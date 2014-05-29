@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -48,6 +50,8 @@ public class MySQLite extends SQLiteOpenHelper{
 	private static String ENG_EX03 = "eng_ex03";
 	private static String ENG_EX04 = "eng_ex04";
 	private static String ENG_EX05 = "eng_ex05";
+	private static String TAG = "tag";
+	private static String TAG_ID="tag_id";
 	
 	public MySQLite(Context context) {
 		super(context, DB_NAME, null, VERSION);
@@ -105,42 +109,84 @@ public class MySQLite extends SQLiteOpenHelper{
         if(db != null)
             db.close();
     }
-    public Cursor eng_get(long id) throws SQLException {
-		 Cursor cursor = db.query(OLD_ENG_TABLE_NAME,
-	                new String[] {_ID, ENG_WORD,  ENG_PT, CNI_WORD, CNI_EX01, ENG_EX01,
-				 CNI_EX02, ENG_EX02, CNI_EX03, ENG_EX03, CNI_EX04, ENG_EX04, CNI_EX05, ENG_EX05},
-	                _ID +"=" + id, null, null, null, null,null);
-	        if (cursor != null) {
-	            cursor.moveToFirst();
-	        }
-	        return cursor;
+    public long Update(int tag, String table, long id){
+    	ContentValues values = new ContentValues();
+    	values.put(TAG, tag);
+    	return db.update(table, values,  _ID + "=" + id, null);
+    }
+    public long append(int id, String table){
+    	ContentValues values = new ContentValues();
+    	values.put(TAG_ID, id);
+    	return db.insert(table, null, values);
+    }
+    public Cursor eng_get(long id, int choes) throws SQLException {
+    	String table = null;
+    	if(choes==1){
+    		 Cursor cursor = db.query(ENG_TABLE_NAME,
+ 	                new String[] {_ID, ENG_WORD,  ENG_PT, CNI_WORD, CNI_EX01, ENG_EX01,
+ 				 CNI_EX02, ENG_EX02, CNI_EX03, ENG_EX03, CNI_EX04, ENG_EX04, CNI_EX05, ENG_EX05, TAG},
+ 	                _ID +"=" + id, null, null, null, null,null);
+    		  if (cursor != null) {
+  	            cursor.moveToFirst();
+  	        }
+  	        return cursor;
+    	}
+    	else {
+    		Cursor cursor = db.query(OLD_ENG_TABLE_NAME,
+                new String[] {_ID, TAG_ID},
+                _ID +"=" + id, null, null, null, null,null);
+    		  if (cursor != null) {
+  	            cursor.moveToFirst();
+  	        }
+  	        return cursor;
+    	}
 	}
-   public Cursor science_get(long id, int choes) throws SQLException {
+    public Cursor science_get(long id, int choes) throws SQLException {
    	String table = null;
    	if(choes == 1){
-   		table = OLD_MATH_TABLE_NAME;
+   		table = MATH_TABLE_NAME;
    	}
    	else{
-   		table = OLD_PHYSICS_TABLE_NAME;
+   		table = PHYSICS_TABLE_NAME;
    	}
 		 Cursor cursor = db.query(table,
 	                new String[] {_ID, SCIENCE_NAME , SCIENCE_K, SCIENCE_F, SCIENCE_Q,
-				 SCIENCE_P, SCIENCE_A, CLIENT_A},
+				 SCIENCE_P, SCIENCE_A, CLIENT_A, TAG},
 	                _ID +"=" + id, null, null, null, null,null);
 	        if (cursor != null) {
 	            cursor.moveToFirst();
 	        }
 	        return cursor;
 	}
-   public int maxID(int choes){
+    public Cursor old_science_get(long id, int choes) throws SQLException {
+       	String table = null;
+       	if(choes == 1){
+       		table = OLD_MATH_TABLE_NAME;
+       	}
+       	else{
+       		table = OLD_PHYSICS_TABLE_NAME;
+       	}
+    		 Cursor cursor = db.query(table,
+    	                new String[] {_ID, TAG_ID},_ID +"=" + id, null, null, null, null,null);
+    	        if (cursor != null) {
+    	            cursor.moveToFirst();
+    	        }
+    	        return cursor;
+    	}
+    public int maxID(int choes){
    	String query = null;
    	if(choes == 1)
-   		query = "SELECT MAX(_id) AS max_id FROM old_eng_table";
+   		query = "SELECT MAX(_id) AS max_id FROM eng_table";
    	else if(choes == 2)
+   		query = "SELECT MAX(_id) AS max_id FROM math_table";
+   	else if(choes == 3)
+   		query = "SELECT MAX(_id) AS max_id FROM physics_table";
+   	else if(choes == 4)
+   		query = "SELECT MAX(_id) AS max_id FROM old_eng_table";
+   	else if(choes == 5)
    		query = "SELECT MAX(_id) AS max_id FROM old_math_table";
-   	else
+   	else 
    		query = "SELECT MAX(_id) AS max_id FROM old_physics_table";
-   		
    	Cursor cursor = db.rawQuery(query, null);
    	 int id = 0;     
    	    if (cursor.moveToFirst())
