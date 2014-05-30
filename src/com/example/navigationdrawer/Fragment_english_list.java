@@ -141,12 +141,12 @@ public class Fragment_english_list extends ListFragment
 		super.onActivityCreated(savedInstanceState);
 		db =new MySQLite(getActivity()); 
 		db.OpenDB();
-		maxID = db.maxID(1);
+		maxID = db.maxID(4);
 		String[] word = new String[maxID];
 		String[] en =  new String[maxID];
 		String[] ch =  new String[maxID];
 		items.clear();
-		for(int i = maxID-1 ; i>0 ; i--){
+		for(int i = maxID-1 ; i>=0 ; i--){
 			Cursor old_cursor = db.eng_get(i+1, 2);
 			Cursor cursor = db.eng_get(old_cursor.getInt(1), 1);
     	 	word[i]=cursor.getString(1)+"\n"+cursor.getString(3);
