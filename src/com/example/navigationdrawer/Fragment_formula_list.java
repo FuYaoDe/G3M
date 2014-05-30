@@ -104,7 +104,7 @@ public class Fragment_formula_list extends ListFragment
 		db =new MySQLite(getActivity()); 
 		db.OpenDB();
 		
-		int maxID = db.maxID(PagNum+1);
+		int maxID = db.maxID(PagNum+4);
 		String[] mathName = new String[maxID];
 		String[] mathImag = new String[maxID];
 		String[] physcisName = new String[maxID];
@@ -114,8 +114,9 @@ public class Fragment_formula_list extends ListFragment
 		if(PagNum==1)
 		{
 			math_items.clear();
-			for(int i = 0 ; i<maxID ; i++){
-				Cursor cursor = db.science_get(i+1,PagNum);
+			for(int i = maxID-1 ; i>=0 ; i--){
+				Cursor old_cursor = db.old_science_get(i+1,PagNum);
+				Cursor cursor = db.science_get(old_cursor.getInt(1),  PagNum);
 				mathName[i] =cursor.getString(1);
 				mathImag[i] =cursor.getString(2);
 				math_items.add(new Item(mathName[i], getResources().getIdentifier(mathImag[i], "drawable", "com.example.navigationdrawer")));
@@ -126,8 +127,9 @@ public class Fragment_formula_list extends ListFragment
 		else
 		{
 			Physical_items.clear();
-			for(int i = 0 ; i<maxID ; i++){
-				Cursor cursor = db.science_get(i+1,PagNum);
+			for(int i = maxID-1 ; i>=0 ; i--){
+				Cursor old_cursor = db.old_science_get(i+1,PagNum);
+				Cursor cursor = db.science_get(old_cursor.getInt(1),  PagNum);
 				physcisName[i] =cursor.getString(1);
 				physcisImag[i] =cursor.getString(2);
 				Physical_items.add(new Item(physcisName[i], getResources().getIdentifier(physcisImag[i], "drawable", "com.example.navigationdrawer")));

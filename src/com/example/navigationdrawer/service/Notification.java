@@ -46,8 +46,12 @@ public class Notification extends IntentService{
 		
 		db = new MySQLite(this);
 		db.OpenDB();
-        eng_count = new testCOUNT(db.maxID(1));
-        cursor_eng = db.eng_get(eng_count.test_id());
+		eng_count = new testCOUNT(db.maxID(1));
+	    cursor_eng = db.eng_get(eng_count.test_id(), 1);
+	    if(cursor_eng.getInt(14)!=1){
+	        	db.Update(1, "eng_table", eng_count.now_id);
+	        	db.append(eng_count.now_id, "old_eng_table");
+	    }
 		
 		Intent againIntent = new Intent(this, Notification.class);
 		againIntent.setAction(Variable.English);
@@ -108,6 +112,10 @@ public class Notification extends IntentService{
 		if(a==1)
 		{
 			cursor_math = db.science_get(math_count.test_id(), a);
+			 if(cursor_math.getInt(8)!=1){
+				 db.Update(1, "math_table", math_count.now_id);
+				 db.append(math_count.now_id, "old_math_table");
+			 }
 			formula = cursor_math.getString(1);
 			bmp = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(cursor_math.getString(2), "drawable", "com.example.navigationdrawer"));
 			//數學 
@@ -116,6 +124,10 @@ public class Notification extends IntentService{
 		else
 		{
 			cursor_physics = db.science_get(physics_count.test_id(), a);
+			if(cursor_physics.getInt(8)!=1){
+		    	 db.Update(1, "physics_table", physics_count.now_id);
+		    	 db.append(physics_count.now_id,  "old_physics_table");
+			}
 			formula = cursor_physics.getString(1);
 			bmp = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(cursor_physics.getString(2), "drawable", "com.example.navigationdrawer"));
 			Log.d("物理",""+a);
