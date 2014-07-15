@@ -76,7 +76,7 @@ public class formula_test extends Fragment
 			switch(v.getId()){
 				case R.id.button1:	
 						if(PagNum == 1){//PagNum == 1 ,math; else physics;
-							if(math_client_a.equals(client_a)){
+							if(math_client_a.equals(client_a.toUpperCase())){
 								word.setText("");
 								math_get();
 								Toast toast = Toast.makeText(getActivity(), "答案正確!", Toast.LENGTH_LONG);
@@ -88,7 +88,7 @@ public class formula_test extends Fragment
 							}
 						}
 						else{
-							if(physics_client_a.equals(client_a) ){
+							if(physics_client_a.equals(client_a.toUpperCase()) ){
 								word.setText("");
 								physics_get();
 								Toast toast = Toast.makeText(getActivity(), "答案正確!", Toast.LENGTH_LONG);

@@ -22,6 +22,7 @@ public class english_test extends Fragment
 	private testCOUNT test_count = null;
 	private int maxID = 0;
 	private String testWord = null;
+	private int now_word_id = 0;
 	private EditText word;
 	private TextView test_word,prompt_word;
 	private Button enter_word, next, answer, detailed;
@@ -79,11 +80,12 @@ public class english_test extends Fragment
 					}
 				break;
 				case R.id.button2:
+					 Log.d("nowWordID  ",""+now_word_id);
 					 Intent intent = new Intent(); 
 			  		 intent.setClass(getActivity(),english_detal.class);
 			  		 Bundle bundle = new Bundle();
 			         bundle.putInt("SelectTab",0);  //把當前點擊的節目代號傳過去
-			         bundle.putInt("Selectid",test_count.now_id-1);   //把節目名稱傳過去
+			         bundle.putInt("Selectid",maxID-now_word_id);   //把節目名稱傳過去
 			         intent.putExtras(bundle);
 			  		 startActivity(intent);
 			  		 break;
@@ -112,6 +114,7 @@ public class english_test extends Fragment
 	public void eng_get(){
 		Cursor old_cursor = db.eng_get(test_count.test_id(), 2);
 		Cursor cursor = db.eng_get(old_cursor.getInt(1), 1);
+		now_word_id = old_cursor.getInt(0);
 		testWord = cursor.getString(1);
 		test_word.setText(test_Word(testWord));
 		prompt_word.setText(cursor.getString(3));
