@@ -205,6 +205,7 @@ public class Notification extends IntentService{
 			 soundPool= new SoundPool(10,AudioManager.STREAM_SYSTEM,5);
 			 soundPool.load(this,R.raw.test,1);
 			 soundPool.play(1,1, 1, 0, 0, 1);
+			 Toast.makeText(getApplicationContext(), "!", Toast.LENGTH_SHORT).show();
 		}
 	}
 }
