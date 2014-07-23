@@ -29,7 +29,7 @@ public class Notification extends IntentService{
 	
 	
 	public Notification() {
-		super("com.example.servicedemo");
+		super("com.example.navigationdrawer.service");
 		
 	}
 	private NotificationManager mNotificationManager;
@@ -75,6 +75,10 @@ public class Notification extends IntentService{
         Intent voiceIntent = new Intent(this, Notification.class);
         voiceIntent.setAction("voice");
         PendingIntent voice = PendingIntent.getService(this, 0, voiceIntent, 0);
+        
+        Intent dismissIntent = new Intent(this, Notification.class);
+        dismissIntent.setAction("close");
+        PendingIntent piDismiss = PendingIntent.getService(this, 0, dismissIntent, 0);
         
 		 builder =
 	                new NotificationCompat.Builder(this)
@@ -186,6 +190,7 @@ public class Notification extends IntentService{
 		// TODO Auto-generated method stub
 		NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		String action = intent.getAction();
+		Log.e("action", action);
 		if(action.equals(Variable.English))
 		{
 			En_Notification();
@@ -205,7 +210,6 @@ public class Notification extends IntentService{
 			 soundPool= new SoundPool(10,AudioManager.STREAM_SYSTEM,5);
 			 soundPool.load(this,R.raw.test,1);
 			 soundPool.play(1,1, 1, 0, 0, 1);
-			 Toast.makeText(getApplicationContext(), "!", Toast.LENGTH_SHORT).show();
 		}
 	}
 }

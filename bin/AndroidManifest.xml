@@ -34,7 +34,8 @@
 	    	</intent-filter>
 		</receiver>
 		
-        <service android:name="com.example.navigationdrawer.service.service"/>
+        <service android:name="com.example.navigationdrawer.service.service"
+            />
         <service android:name="com.example.navigationdrawer.service.Notification" />
         
     </application>
