@@ -9,8 +9,14 @@ import android.app.ListActivity;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.media.SoundPool.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -23,7 +29,8 @@ public class english_detal extends Activity {
 	private TextView kk;
 	private TextView tra;
 	private ListView listView1;
-	
+	private SoundPool mSoundPool;
+	private ImageButton mImageButton;
 	ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String,String>>();
 	 private SimpleAdapter adapter;
 	@Override
@@ -40,7 +47,22 @@ public class english_detal extends Activity {
 		kk=(TextView)findViewById(R.id.kk);
 		tra=(TextView)findViewById(R.id.tra);
 		listView1=(ListView)findViewById(R.id.listView1);
-		
+		mImageButton = (ImageButton)findViewById(R.id.imageButton1);
+		mImageButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				// TODO 自動產生的方法 Stub
+				mSoundPool = new SoundPool(10,AudioManager.STREAM_SYSTEM,5);
+				mSoundPool.load(v.getContext(),R.raw.test,1);
+				mSoundPool.setOnLoadCompleteListener(new OnLoadCompleteListener(){
+					 @Override
+					 public void onLoadComplete(SoundPool arg0, int arg1, int arg2) {
+						 mSoundPool.play(1, 1, 1, 0, 0, 1.0f);
+				 }});
+			}
+		});
+			
+	
 		db =new MySQLite(this); 
 		db.OpenDB();
 		
@@ -71,7 +93,7 @@ public class english_detal extends Activity {
 		listView1.setAdapter( adapter );
 		
 	}
-
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
