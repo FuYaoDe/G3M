@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.media.SoundPool.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -24,7 +25,7 @@ import android.widget.TextView;
 
 public class Fragment_english_list extends ListFragment
 {
-	
+	SoundPool soundPool;
 	private static final List<Item> items = new ArrayList<Item>();
 	private static MySQLite db=null;
 	private static int maxID;
@@ -70,10 +71,15 @@ public class Fragment_english_list extends ListFragment
 	 
 	    public void onClick(View v) {
 	        Log.i("«ö¨ì«ö¶s",position+"");
-	         SoundPool soundPool;
+//	         SoundPool soundPool;
 			 soundPool= new SoundPool(10,AudioManager.STREAM_SYSTEM,5);
 			 soundPool.load(getActivity(),R.raw.test,1);
-			 soundPool.play(1,1, 1, 0, 0, 1);
+			 soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener(){
+				 @Override
+				 public void onLoadComplete(SoundPool arg0, int arg1, int arg2) {
+					 soundPool.play(1, 1, 1, 0, 0, 1.0f);
+			 }});
+//			 soundPool.play(1,1, 1, 0, 0, 1);
 	    }
 	}
 	
