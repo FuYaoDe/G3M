@@ -81,7 +81,9 @@ public class Fragment_english_list extends ListFragment
 			 soundPool= new SoundPool(10,AudioManager.STREAM_MUSIC,5);
 			 if(getResources().getIdentifier(soundWord[maxID-position-1], "raw", "com.example.navigationdrawer") != 0){
 				 soundPool.load(getActivity(), getResources().getIdentifier(soundWord[maxID-position-1], "raw", "com.example.navigationdrawer"), 1);
-			 }
+			 }else{
+				 soundPool.load(v.getContext(), R.raw.test, 1);
+			}
 			 soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener(){
 				 @Override
 				 public void onLoadComplete(SoundPool arg0, int arg1, int arg2) {

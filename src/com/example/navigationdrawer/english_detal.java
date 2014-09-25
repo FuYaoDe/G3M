@@ -56,6 +56,8 @@ public class english_detal extends Activity {
 				
 				if(getResources().getIdentifier(cursor.getString(1), "raw", "com.example.navigationdrawer")!= 0){
 					mSoundPool.load(v.getContext(), getResources().getIdentifier(cursor.getString(1), "raw", "com.example.navigationdrawer"), 1);
+				}else{
+					mSoundPool.load(v.getContext(), R.raw.test, 1);
 				}
 				mSoundPool.setOnLoadCompleteListener(new OnLoadCompleteListener(){
 					 @Override
