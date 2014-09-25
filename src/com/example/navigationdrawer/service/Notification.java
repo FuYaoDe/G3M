@@ -18,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.media.SoundPool.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.DisplayMetrics;
@@ -27,7 +28,7 @@ import android.widget.Toast;
 public class Notification extends IntentService{
 	
 	
-	
+	SoundPool soundPool;
 	public Notification() {
 		super("com.example.navigationdrawer.service");
 		
@@ -203,13 +204,18 @@ public class Notification extends IntentService{
 		}
 		else if(action.equals("close"))
 		{	
+			Log.d("music", "test");
 			nm.cancel(1);
 		}
 		else if(action.equals("voice")){
-			 SoundPool soundPool;
-			 soundPool= new SoundPool(10,AudioManager.STREAM_SYSTEM,5);
+			 Log.d("music", "test");
+			 soundPool= new SoundPool(10,AudioManager.STREAM_MUSIC,5);
 			 soundPool.load(this,R.raw.test,1);
-			 soundPool.play(1,1, 1, 0, 0, 1);
+			 soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener(){
+				 @Override
+				 public void onLoadComplete(SoundPool arg0, int arg1, int arg2) {
+					 soundPool.play(1, 1, 1, 0, 0, 1.0f);
+			 }});
 		}
 	}
 }

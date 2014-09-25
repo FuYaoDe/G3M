@@ -26,6 +26,12 @@ import android.widget.TextView;
 public class Fragment_english_list extends ListFragment
 {
 	SoundPool soundPool;
+	Cursor old_cursor;
+	Cursor cursor;
+	String[] word;
+	String[] soundWord;
+	String[] en;
+	String[] ch;
 	private static final List<Item> items = new ArrayList<Item>();
 	private static MySQLite db=null;
 	private static int maxID;
@@ -70,10 +76,12 @@ public class Fragment_english_list extends ListFragment
 	    }
 	 
 	    public void onClick(View v) {
-	        Log.i("«ö¨ì«ö¶s",position+"");
+	        Log.i("«ö¨ì«ö¶s", position+" "+soundWord[maxID-position-1]);
 //	         SoundPool soundPool;
-			 soundPool= new SoundPool(10,AudioManager.STREAM_SYSTEM,5);
-			 soundPool.load(getActivity(),R.raw.test,1);
+			 soundPool= new SoundPool(10,AudioManager.STREAM_MUSIC,5);
+			 if(getResources().getIdentifier(soundWord[maxID-position-1], "raw", "com.example.navigationdrawer") != 0){
+				 soundPool.load(getActivity(), getResources().getIdentifier(soundWord[maxID-position-1], "raw", "com.example.navigationdrawer"), 1);
+			 }
 			 soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener(){
 				 @Override
 				 public void onLoadComplete(SoundPool arg0, int arg1, int arg2) {
@@ -148,14 +156,16 @@ public class Fragment_english_list extends ListFragment
 		db =new MySQLite(getActivity()); 
 		db.OpenDB();
 		maxID = db.maxID(4);
-		String[] word = new String[maxID];
-		String[] en =  new String[maxID];
-		String[] ch =  new String[maxID];
+		word = new String[maxID];
+		en =  new String[maxID];
+		ch =  new String[maxID];
+		soundWord = new String[maxID];
 		items.clear();
 		for(int i = maxID-1 ; i>=0 ; i--){
-			Cursor old_cursor = db.eng_get(i+1, 2);
-			Cursor cursor = db.eng_get(old_cursor.getInt(1), 1);
+			old_cursor = db.eng_get(i+1, 2);
+			cursor = db.eng_get(old_cursor.getInt(1), 1);
     	 	word[i]=cursor.getString(1)+"\n"+cursor.getString(3);
+    	 	soundWord[i] = cursor.getString(1);
     	 	en[i]=cursor.getString(5);
     	 	ch[i]=cursor.getString(4);
     	 	items.add(new Item(word[i] , en[i] , ch[i]));

@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 
 public class english_detal extends Activity {
-
+	Cursor cursor;
 	private MySQLite db=null;
 	private TextView word;
 	private TextView kk;
@@ -52,8 +52,11 @@ public class english_detal extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO 自動產生的方法 Stub
-				mSoundPool = new SoundPool(10,AudioManager.STREAM_SYSTEM,5);
-				mSoundPool.load(v.getContext(),R.raw.test,1);
+				mSoundPool = new SoundPool(10,AudioManager.STREAM_MUSIC,5);
+				
+				if(getResources().getIdentifier(cursor.getString(1), "raw", "com.example.navigationdrawer")!= 0){
+					mSoundPool.load(v.getContext(), getResources().getIdentifier(cursor.getString(1), "raw", "com.example.navigationdrawer"), 1);
+				}
 				mSoundPool.setOnLoadCompleteListener(new OnLoadCompleteListener(){
 					 @Override
 					 public void onLoadComplete(SoundPool arg0, int arg1, int arg2) {
@@ -68,7 +71,7 @@ public class english_detal extends Activity {
 		
 		Bundle Main1 =english_detal.this.getIntent().getExtras();
 		Cursor old_cursor = db.eng_get(db.maxID(4)-Main1.getInt("Selectid"), 2);
-		Cursor cursor = db.eng_get(old_cursor.getInt(1), 1);
+		cursor = db.eng_get(old_cursor.getInt(1), 1);
 		String[] En=new String[] {cursor.getString(5), cursor.getString(7), cursor.getString(9), cursor.getString(11), cursor.getString(13)};
 		String[] Ch=new String[] {cursor.getString(4), cursor.getString(6), cursor.getString(8), cursor.getString(10), cursor.getString(12)};
 		String ch = cursor.getString(3);
