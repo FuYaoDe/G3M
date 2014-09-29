@@ -28,7 +28,7 @@
         <activity android:name="com.example.navigationdrawer.english_detal"></activity>
         <activity android:name="com.example.navigationdrawer.formula_detal"></activity>
         <!-- 記得這裡-->
-        <receiver android:enabled="true" android:name=".Receive_BootCompleted">
+        <receiver android:enabled="true" android:name="com.example.navigationdrawer.service.Receive_BootCompleted">
 	     	<intent-filter>
 	            <action android:name="android.intent.action.BOOT_COMPLETED"></action>
 	    	</intent-filter>

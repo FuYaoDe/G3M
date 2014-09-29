@@ -50,7 +50,6 @@ public class MainActivity extends FragmentActivity {
 		//¶}±Òservice
 		Intent intent = new Intent(MainActivity.this,com.example.navigationdrawer.service.service.class);
 		 startService(intent);
-		 Toast.makeText(getApplicationContext(), "¶}±Ò", Toast.LENGTH_SHORT).show();
 
 		drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
 		drawerToggle = new ActionBarDrawerToggle(this, drawer,

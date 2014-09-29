@@ -111,6 +111,7 @@ public class service extends Service implements GPSCallback{
 	 public int onStartCommand(Intent intent, int flags, int startId) {
 	  // TODO Auto-generated method stub
 	  Log.i("服務", "執行");
+	  Toast.makeText(getApplicationContext(), "service開啟", Toast.LENGTH_SHORT).show();
 	  settings = getSharedPreferences(Variable.SetName, 0);
 	  
 	  Set = new ServiceSetting(settings,getApplicationContext());
