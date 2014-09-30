@@ -84,7 +84,7 @@ public class Notification extends IntentService{
 	    	voicebundle.putString("VoiceName", "test");
 		}
 	    voiceIntent.putExtras(voicebundle);
-        PendingIntent voice = PendingIntent.getService(this, 0, voiceIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent voice = PendingIntent.getService(this, 0, voiceIntent,0);
         
         Intent dismissIntent = new Intent(this, Notification.class);
         dismissIntent.setAction("close");
@@ -222,7 +222,18 @@ public class Notification extends IntentService{
 			 getClass = intent.getExtras();
 			 String VoiceName=getClass.getString("VoiceName");
 			 soundPool.load(this,getResources().getIdentifier(VoiceName, "raw", "com.example.navigationdrawer"),1);
+			 try {
+				this.wait(30);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			 soundPool.play(1, 1, 1, 0, 0, 1.0f);
+//			 soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener(){
+//				 @Override
+//				 public void onLoadComplete(SoundPool arg0, int arg1, int arg2) {
+//					 soundPool.play(1, 1, 1, 0, 0, 1.0f);
+//			 }});
 		}
 	}
 	
