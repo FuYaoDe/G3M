@@ -222,12 +222,6 @@ public class Notification extends IntentService{
 			 getClass = intent.getExtras();
 			 String VoiceName=getClass.getString("VoiceName");
 			 soundPool.load(this,getResources().getIdentifier(VoiceName, "raw", "com.example.navigationdrawer"),1);
-			 try {
-				this.wait(30);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			 soundPool.play(1, 1, 1, 0, 0, 1.0f);
 //			 soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener(){
 //				 @Override

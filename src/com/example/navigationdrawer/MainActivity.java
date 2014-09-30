@@ -49,7 +49,7 @@ public class MainActivity extends FragmentActivity {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActionBar().getThemedContext(), R.layout.list, data);
 		//¶}±Òservice
 		Intent intent = new Intent(MainActivity.this,com.example.navigationdrawer.service.service.class);
-		 startService(intent);
+		startService(intent);
 
 		drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
 		drawerToggle = new ActionBarDrawerToggle(this, drawer,

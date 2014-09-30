@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,7 +36,7 @@ public class FragmentSetting extends Fragment {
     
     List<Boolean> listShow3; 
    	List<String> list3;
-    ListView listview3;
+	ListView listview3;
     SharedPreferences settings;
     
     private static String[] checkText1= new String[]{"英文","數學","物理","笑話"};
@@ -49,16 +50,23 @@ public class FragmentSetting extends Fragment {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 	}
-
-
+	
 	public static Fragment newInstance(Context context) {
     	FragmentStatistics f = new FragmentStatistics();
  
         return f;
     }
- 
- 
+	
+	
     @Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		Intent intent = new Intent(getActivity(),com.example.navigationdrawer.service.service.class);
+		getActivity().startService(intent);
+	}
+
+	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
     	settings = this.getActivity().getSharedPreferences(Variable.SetName, 0);
     	
