@@ -76,7 +76,7 @@ public class Fragment_english_list extends ListFragment
 	    }
 	 
 	    public void onClick(View v) {
-	        Log.i("按到按鈕", position+" "+soundWord[maxID-position-1]);
+	        Log.i("按到按鈕", maxID-position+" "+soundWord[maxID-position-1]);
 //	         SoundPool soundPool;
 			 soundPool= new SoundPool(10,AudioManager.STREAM_MUSIC,5);
 			 if(getResources().getIdentifier(soundWord[maxID-position-1], "raw", "com.example.navigationdrawer") != 0){
@@ -184,11 +184,13 @@ public class Fragment_english_list extends ListFragment
 	public void onListItemClick (ListView l, View v, int position, long id){
 		super.onListItemClick(l, v, position, id);
 		Log.i("按到list",position+"");
+		Cursor mCursor = db.eng_get(maxID-position, 2);
+		//Cursor idCursor = db.eng_get(old_cursor.getInt(1), 1);
 		 Intent intent = new Intent(); 
   		 intent.setClass(getActivity(),english_detal.class);
   		 Bundle bundle = new Bundle();
          bundle.putInt("SelectTab",getArguments().getInt("position"));
-         bundle.putInt("Selectid",position);   
+         bundle.putInt("Selectid", mCursor.getInt(1));   
          intent.putExtras(bundle);
   		 startActivity(intent);
 		//Toast.makeText(getActivity(),"點選位置"+ position+"\n id:"+id+"\n View:"+v+"\n 當前頁面:"+getArguments().getInt("position"),Toast.LENGTH_SHORT).show();

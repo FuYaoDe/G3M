@@ -31,7 +31,7 @@ public class formula_detal  extends Activity {
 		
 		db = new MySQLite(this);
 		db.OpenDB();
-		Cursor cursor = db.science_get(db.maxID(Main1.getInt("SelectTab")+4)-Main1.getInt("Selectid"), Main1.getInt("SelectTab"));
+		Cursor cursor = db.science_get(Main1.getInt("Selectid"), Main1.getInt("SelectTab"));
 		Science_f = cursor.getString(3);
 				
 		text.setText(cursor.getString(1));
