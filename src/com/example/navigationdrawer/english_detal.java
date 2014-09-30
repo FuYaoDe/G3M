@@ -2,7 +2,6 @@ package com.example.navigationdrawer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ListActivity;
