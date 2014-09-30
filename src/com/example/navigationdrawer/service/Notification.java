@@ -20,6 +20,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.media.SoundPool.OnLoadCompleteListener;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -43,6 +44,7 @@ public class Notification extends IntentService{
 	private Bitmap bmp = null;
 	
 	private void En_Notification(){
+		
 		mNotificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		
 		db = new MySQLite(this);
@@ -53,10 +55,10 @@ public class Notification extends IntentService{
 	        	db.Update(1, "eng_table", eng_count.now_id);
 	        	db.append(eng_count.now_id, "old_eng_table");
 	    }
-		
+	    
 		Intent againIntent = new Intent(this, Notification.class);
 		againIntent.setAction(Variable.English);
-        PendingIntent again = PendingIntent.getService(this, 0, againIntent, 0);
+        PendingIntent again = PendingIntent.getService(this, 0, againIntent,PendingIntent.FLAG_CANCEL_CURRENT);
         
         Intent detailIntent = new Intent(this,english_detal.class); 
  		Bundle bundle = new Bundle();
@@ -68,18 +70,25 @@ public class Notification extends IntentService{
         // no need to create an artificial back stack.
         PendingIntent detail = PendingIntent.getActivity(
                 this,
-                0,
+                1,
                 detailIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT
+                PendingIntent.FLAG_CANCEL_CURRENT
         );
         
         Intent voiceIntent = new Intent(this, Notification.class);
         voiceIntent.setAction("voice");
-        PendingIntent voice = PendingIntent.getService(this, 0, voiceIntent, 0);
+        Bundle voicebundle = new Bundle();
+	    if(getResources().getIdentifier(cursor_eng.getString(1), "raw", "com.example.navigationdrawer")!= 0){
+	    	voicebundle.putString("VoiceName", cursor_eng.getString(1));
+	    }else{
+	    	voicebundle.putString("VoiceName", "test");
+		}
+	    voiceIntent.putExtras(voicebundle);
+        PendingIntent voice = PendingIntent.getService(this, 0, voiceIntent,0);
         
         Intent dismissIntent = new Intent(this, Notification.class);
         dismissIntent.setAction("close");
-        PendingIntent piDismiss = PendingIntent.getService(this, 0, dismissIntent, 0);
+        PendingIntent piDismiss = PendingIntent.getService(this, 0, dismissIntent,  PendingIntent.FLAG_UPDATE_CURRENT);
         
 		 builder =
 	                new NotificationCompat.Builder(this)
@@ -210,12 +219,22 @@ public class Notification extends IntentService{
 		else if(action.equals("voice")){
 			 Log.d("music", "test");
 			 soundPool= new SoundPool(10,AudioManager.STREAM_MUSIC,5);
-			 soundPool.load(this,R.raw.test,1);
-			 soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener(){
-				 @Override
-				 public void onLoadComplete(SoundPool arg0, int arg1, int arg2) {
-					 soundPool.play(1, 1, 1, 0, 0, 1.0f);
-			 }});
+			 getClass = intent.getExtras();
+			 String VoiceName=getClass.getString("VoiceName");
+			 soundPool.load(this,getResources().getIdentifier(VoiceName, "raw", "com.example.navigationdrawer"),1);
+			 try {
+				this.wait(30);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 soundPool.play(1, 1, 1, 0, 0, 1.0f);
+//			 soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener(){
+//				 @Override
+//				 public void onLoadComplete(SoundPool arg0, int arg1, int arg2) {
+//					 soundPool.play(1, 1, 1, 0, 0, 1.0f);
+//			 }});
 		}
 	}
+	
 }
