@@ -23,7 +23,7 @@ public class Fragment_formula_list extends ListFragment
 	private static final List<Item> Physical_items = new ArrayList<Item>();
 	private static int PagNum=0;
 	private MySQLite db=null;
-	
+	int maxID = 0;
 	private static class Item
 	{
 		public final String line1;
@@ -104,7 +104,7 @@ public class Fragment_formula_list extends ListFragment
 		db =new MySQLite(getActivity()); 
 		db.OpenDB();
 		
-		int maxID = db.maxID(PagNum+4);
+		maxID = db.maxID(PagNum+4);
 		String[] mathName = new String[maxID];
 		String[] mathImag = new String[maxID];
 		String[] physcisName = new String[maxID];
@@ -141,11 +141,18 @@ public class Fragment_formula_list extends ListFragment
 	public void onListItemClick (ListView l, View v, int position, long id){
 		super.onListItemClick(l, v, position, id);
 		
+		
 		Intent intent = new Intent(); 
  		intent.setClass(getActivity(),formula_detal.class);
  		Bundle bundle = new Bundle();
 		bundle.putInt("SelectTab",getArguments().getInt("position"));  //把當前點擊的節目代號傳過去
-        bundle.putInt("Selectid",position);   //把節目名稱傳過去
+		if(getArguments().getInt("position") == 1){
+			Cursor mCursor = db.old_science_get(maxID-position, 1);
+			bundle.putInt("Selectid",mCursor.getInt(1));
+		}else{
+			Cursor mCursor = db.old_science_get(maxID-position, 2);
+			bundle.putInt("Selectid",mCursor.getInt(1));
+		}  //把節目名稱傳過去
         intent.putExtras(bundle);
  		startActivity(intent);
 		//Toast.makeText(getActivity(),"點選位置"+ position+"\n id:"+id+"\n View:"+v+"\n 當前頁面:"+getArguments().getInt("position"),Toast.LENGTH_SHORT).show();

@@ -5,6 +5,7 @@ import com.example.navigationdrawer.MySQLite;
 import com.example.navigationdrawer.R;
 import com.example.navigationdrawer.Variable;
 import com.example.navigationdrawer.english_detal;
+import com.example.navigationdrawer.formula_detal;
 import com.example.navigationdrawer.testCOUNT;
 
 import android.app.IntentService;
@@ -63,7 +64,8 @@ public class Notification extends IntentService{
         Intent detailIntent = new Intent(this,english_detal.class); 
  		Bundle bundle = new Bundle();
         bundle.putInt("SelectTab",0);
-        bundle.putInt("Selectid",eng_count.now_id-1);    //這裡id -1 配合你的detail介面
+        bundle.putInt("Selectid",eng_count.now_id);
+        Log.i("按到按鈕",eng_count.now_id+"");
         detailIntent.putExtras(bundle);
         detailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);   //清除已經推撥的OR新增推播
         // Because clicking the notification opens a new ("special") activity, there's
@@ -122,6 +124,10 @@ public class Notification extends IntentService{
 		db.OpenDB();
 		math_count = new testCOUNT(db.maxID(2));
 		physics_count = new testCOUNT(db.maxID(3));
+		Intent detailIntent = new Intent(this,formula_detal.class); 
+		Bundle bundle = new Bundle();
+		
+	 	
 		//這裡無法使用Toast,要開多現執行續
 		if(a==1)
 		{
@@ -133,6 +139,9 @@ public class Notification extends IntentService{
 			formula = cursor_math.getString(1);
 			bmp = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(cursor_math.getString(2), "drawable", "com.example.navigationdrawer"));
 			//數學 
+			
+	        bundle.putInt("SelectTab",1);
+	        bundle.putInt("Selectid",math_count.now_id);
 			Log.d("數學",""+a);
 		}
 		else
@@ -144,10 +153,31 @@ public class Notification extends IntentService{
 			}
 			formula = cursor_physics.getString(1);
 			bmp = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(cursor_physics.getString(2), "drawable", "com.example.navigationdrawer"));
+			
+			
+	        bundle.putInt("SelectTab",2);
+	        bundle.putInt("Selectid",physics_count.now_id);
 			Log.d("物理",""+a);
 			//物理
 		}
 		mNotificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+		
+			
+//	        Log.i("按到按鈕",eng_count.now_id+"");
+	        detailIntent.putExtras(bundle);
+	        detailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);   //清除已經推撥的OR新增推播
+	        // Because clicking the notification opens a new ("special") activity, there's
+	        // no need to create an artificial back stack.
+	        PendingIntent detail = PendingIntent.getActivity(
+	                this,
+	                1,
+	                detailIntent,
+	                PendingIntent.FLAG_CANCEL_CURRENT
+	        );
+	    
+	        Intent againIntent = new Intent(this, Notification.class);
+			againIntent.setAction(Variable.Formula);
+	        PendingIntent again = PendingIntent.getService(this, 0, againIntent,PendingIntent.FLAG_CANCEL_CURRENT);
 		
 		Intent dismissIntent = new Intent(this, Notification.class);
         dismissIntent.setAction("close");
@@ -173,9 +203,9 @@ public class Notification extends IntentService{
 	                .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bmp))
 	                
 	                .addAction (android.R.drawable.ic_media_play,
-	                        "下一個", piDismiss)
+	                        "下一個", again)
 	                .addAction (android.R.drawable.ic_menu_edit,
-	                        "詳細", piDismiss);
+	                        "詳細", detail);
 		 
 		 Intent resultIntent = new Intent(this, MainActivity.class);
          resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);   //清除已經推撥的OR新增推播
