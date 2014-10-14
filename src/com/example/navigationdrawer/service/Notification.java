@@ -143,6 +143,7 @@ public class Notification extends IntentService{
 	        bundle.putInt("SelectTab",1);
 	        bundle.putInt("Selectid",math_count.now_id);
 			Log.d("¼Æ¾Ç",""+a);
+			
 		}
 		else
 		{
@@ -177,6 +178,7 @@ public class Notification extends IntentService{
 	    
 	        Intent againIntent = new Intent(this, Notification.class);
 			againIntent.setAction(Variable.Formula);
+			againIntent.putExtra("class", a);
 	        PendingIntent again = PendingIntent.getService(this, 0, againIntent,PendingIntent.FLAG_CANCEL_CURRENT);
 		
 		Intent dismissIntent = new Intent(this, Notification.class);
