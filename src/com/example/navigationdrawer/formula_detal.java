@@ -36,6 +36,15 @@ public class formula_detal  extends Activity {
 				
 		text.setText(cursor.getString(1));
 		img.setImageResource(getResources().getIdentifier(Science_f, "drawable", "com.example.navigationdrawer"));
+		
+		if(Main1.getBoolean("call")){
+			if(Main1.getInt("SelectTab")==1){
+				db.set_statistics_data("Math");
+			}else{
+				db.set_statistics_data("physics");
+			}
+		}
+		
 	}
 
 	@Override
