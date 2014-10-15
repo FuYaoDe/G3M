@@ -42,6 +42,7 @@ public class Notification extends IntentService{
 	private Cursor cursor_eng = null, cursor_math = null, cursor_physics = null;
 	private testCOUNT eng_count = null, math_count = null, physics_count = null;
 	private String formula = null;
+	private String kind = null;
 	private Bitmap bmp = null;
 	
 	private void En_Notification(){
@@ -65,6 +66,7 @@ public class Notification extends IntentService{
  		Bundle bundle = new Bundle();
         bundle.putInt("SelectTab",0);
         bundle.putInt("Selectid",eng_count.now_id);
+        bundle.putBoolean("call", true);
         Log.i("按到按鈕",eng_count.now_id+"");
         detailIntent.putExtras(bundle);
         detailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);   //清除已經推撥的OR新增推播
@@ -139,7 +141,7 @@ public class Notification extends IntentService{
 			formula = cursor_math.getString(1);
 			bmp = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(cursor_math.getString(2), "drawable", "com.example.navigationdrawer"));
 			//數學 
-			
+			kind = "math";
 	        bundle.putInt("SelectTab",1);
 	        bundle.putInt("Selectid",math_count.now_id);
 			Log.d("數學",""+a);
@@ -155,7 +157,7 @@ public class Notification extends IntentService{
 			formula = cursor_physics.getString(1);
 			bmp = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(cursor_physics.getString(2), "drawable", "com.example.navigationdrawer"));
 			
-			
+			kind = "physics";
 	        bundle.putInt("SelectTab",2);
 	        bundle.putInt("Selectid",physics_count.now_id);
 			Log.d("物理",""+a);
@@ -236,12 +238,14 @@ public class Notification extends IntentService{
 		if(action.equals(Variable.English))
 		{
 			En_Notification();
+			db.set_statistics_data("En");
 		}
 		else if(action.equals(Variable.Formula))
 		{
 			getClass = intent.getExtras();
 			int ForClass=getClass.getInt("class");
 			Formula_Notification(ForClass);	
+			db.set_statistics_data(kind);
 		}
 		else if(action.equals("close"))
 		{	

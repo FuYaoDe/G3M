@@ -95,9 +95,13 @@ public class english_detal extends Activity {
 				 new String[] { "En","Ch" },
 				 new int[] { android.R.id.text1, android.R.id.text2 } );
 		listView1.setAdapter( adapter );
-		
+		notificationEnDetal(Main1.getBoolean("call"));
 	}
-	
+	public void notificationEnDetal(boolean call){
+		if(call){
+			db.set_statistics_data("En");
+		}
+	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {

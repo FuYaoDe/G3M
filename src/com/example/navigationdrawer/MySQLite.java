@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -29,6 +31,7 @@ public class MySQLite extends SQLiteOpenHelper{
 	private static String OLD_ENG_TABLE_NAME = "old_eng_table";
 	private static String OLD_MATH_TABLE_NAME = "old_math_table";
 	private static String OLD_PHYSICS_TABLE_NAME = "old_physics_table";
+	private static String STATISTICS_DATA_TABLE_NAME = "statistics_data";
 	private static String _ID = "_id";
 	private static String SCIENCE_NAME = "name_f";
 	private static String SCIENCE_K = "science_k";
@@ -52,6 +55,8 @@ public class MySQLite extends SQLiteOpenHelper{
 	private static String ENG_EX05 = "eng_ex05";
 	private static String TAG = "tag";
 	private static String TAG_ID="tag_id";
+	private static String DATA_TIME = "data_time";
+	private static String KIND = "kind";
 	
 	public MySQLite(Context context) {
 		super(context, DB_NAME, null, VERSION);
@@ -173,6 +178,19 @@ public class MySQLite extends SQLiteOpenHelper{
     	        }
     	        return cursor;
     	}
+    public long set_statistics_data(String kind){
+    	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    	Date mDate = new Date(System.currentTimeMillis());
+    	String dateNow = mSimpleDateFormat.format(mDate);	
+    	ContentValues mContentValues = new ContentValues();
+    	mContentValues.put(DATA_TIME, dateNow);
+    	mContentValues.put(KIND, kind);
+    	return db.insert(STATISTICS_DATA_TABLE_NAME, null, mContentValues);
+    }
+    public Cursor get_statisics(long id) throws SQLException{
+    	Cursor mCursor = db.query(STATISTICS_DATA_TABLE_NAME, new String[] {_ID, DATA_TIME, KIND}, _ID + "=" + id, null, null, null, null, null);
+    	return mCursor;
+    }
     public int maxID(int choes){
    	String query = null;
    	if(choes == 1)
