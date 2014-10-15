@@ -144,6 +144,7 @@ public class Notification extends IntentService{
 			kind = "math";
 	        bundle.putInt("SelectTab",1);
 	        bundle.putInt("Selectid",math_count.now_id);
+	        bundle.putBoolean("call", true);
 			Log.d("數學",""+a);
 			
 		}
@@ -160,6 +161,7 @@ public class Notification extends IntentService{
 			kind = "physics";
 	        bundle.putInt("SelectTab",2);
 	        bundle.putInt("Selectid",physics_count.now_id);
+	        bundle.putBoolean("call", true);
 			Log.d("物理",""+a);
 			//物理
 		}
