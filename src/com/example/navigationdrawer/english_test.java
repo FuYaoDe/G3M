@@ -67,6 +67,7 @@ public class english_test extends Fragment
 			testWord.toUpperCase();	/*update*/
 			switch (v.getId()){
 				case R.id.button1:
+					db.set_statistics_data("Test_En");
 					if(userWord.equals(testWord)){
 						word.setText("");
 						eng_get();
@@ -80,6 +81,7 @@ public class english_test extends Fragment
 					}
 				break;
 				case R.id.button2:
+					db.set_statistics_data("Test_En");
 					 Log.d("nowWordID  ",""+now_word_id);
 					 Intent intent = new Intent(); 
 			  		 intent.setClass(getActivity(),english_detal.class);

@@ -76,6 +76,7 @@ public class formula_test extends Fragment
 			switch(v.getId()){
 				case R.id.button1:	
 						if(PagNum == 1){//PagNum == 1 ,math; else physics;
+							db.set_statistics_data("Test_Math");
 							if(math_client_a.equals(client_a.toUpperCase())){
 								word.setText("");
 								math_get();
@@ -88,6 +89,7 @@ public class formula_test extends Fragment
 							}
 						}
 						else{
+							db.set_statistics_data("Test_Physics");
 							if(physics_client_a.equals(client_a.toUpperCase()) ){
 								word.setText("");
 								physics_get();
