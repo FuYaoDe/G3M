@@ -1,6 +1,9 @@
 package com.example.navigationdrawer;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.achartengine.ChartFactory;
@@ -13,10 +16,12 @@ import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.app.ActionBar.LayoutParams;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +31,12 @@ import android.widget.Toast;
  
 public class FragmentStatistics extends Fragment {
  
+	private MySQLite db=null;
+	private int maxID = 0;
+	private double[] En = new double[7];;
+	private double[] Math = new double[7];;
+	private double[] Physical = new double[7];;
+	private double[] Date = new double[] {0,1,2,3,4,5,6};
     @Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -40,24 +51,39 @@ public class FragmentStatistics extends Fragment {
  
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    	
+    	db =new MySQLite(getActivity()); 
+		db.OpenDB();
+		
+		
+		DateComputing();
+		
+		Log.d(""+(int)Date[6]+" ", ""+Date[0]);
+		
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_three, null);
         LinearLayout L1 = (LinearLayout) root.findViewById(R.id.L1);
         LinearLayout L2 = (LinearLayout) root.findViewById(R.id.L2);
-        String[] titles = new String[] { "折線1", "折線2" }; // 定義折線的名稱
+        String[] titles = new String[] { "英文", "數學", "物理"}; // 定義折線的名稱
         List<double[]> x = new ArrayList<double[]>(); // 點的x坐標
         List<double[]> y = new ArrayList<double[]>(); // 點的y坐標
+        
         // 數值X,Y坐標值輸入
-        x.add(new double[] { 1, 3, 5, 7, 9, 11 });
-        x.add(new double[] { 0, 2, 4, 6, 8, 10 ,13});
-        y.add(new double[] { 3, 14, 8, 22, 16, 18 });
-        y.add(new double[] { 20, 18, 15, 12, 10, 8 ,5});
+        x.add(Date); //英文
+        y.add(En); //英文
+        
+        x.add(Date); //數學
+        y.add(Math); //數學
+        
+        x.add(Date);//物理
+        y.add(Physical); //物理
+        
         XYMultipleSeriesDataset dataset = buildDatset(titles, x, y); // 儲存座標值
 
-        int[] colors = new int[] { Color.BLUE, Color.GREEN };// 折線的顏色
-        PointStyle[] styles = new PointStyle[] { PointStyle.CIRCLE, PointStyle.DIAMOND }; // 折線點的形狀
+        int[] colors = new int[] { Color.BLUE, Color.GREEN, Color.RED};// 折線的顏色
+        PointStyle[] styles = new PointStyle[] { PointStyle.CIRCLE, PointStyle.CIRCLE, PointStyle.CIRCLE}; // 折線點的形狀
         XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles, true);
 
-        setChartSettings(renderer, "推播練習次數", "X軸名稱", "Y軸名稱", 0, 12, 0, 25, Color.BLACK);// 定義折線圖
+        setChartSettings(renderer, "推播練習次數", "X軸名稱", "Y軸名稱", Date[0], Date[6], 0, 25, Color.BLACK);// 定義折線圖
         
         GraphicalView chart =(GraphicalView)ChartFactory.getLineChartView(getActivity(), dataset, renderer);
         //setContentView(chart);
@@ -144,5 +170,52 @@ public class FragmentStatistics extends Fragment {
     private int textsize(int size){
     	 DisplayMetrics dm = this.getResources().getDisplayMetrics();
     	 return (int)(size*dm.density);
+    }
+    
+    private double DateComputing(){
+    	
+    	maxID = db.maxID(6);
+    	Log.d("maxID", ""+maxID);
+    	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    	String stringDate;
+    	double doubleDate;
+    	Date mDate = new Date(System.currentTimeMillis());
+    	Date oldDate;
+    	Calendar mCalendar = Calendar.getInstance();
+    	mCalendar.setTime(mDate);
+    	Cursor mCursor;
+    	int EnScore = 0;
+    	int MathScore = 0;
+    	int PhysicalScore = 0;
+    	// x = date ; y = point ;
+    	
+    	for(int i=0 ; i<7 ; i++){
+    		mCalendar.add(Calendar.DATE, -i);
+    		oldDate = mCalendar.getTime();
+    		stringDate = mSimpleDateFormat.format(oldDate);
+    		//Date[i] = Double.parseDouble(stringDate.replaceAll("-", ""));
+    		EnScore = 0;
+    		MathScore = 0;
+    		PhysicalScore = 0;
+    		for(int j=1 ; j<=maxID ; j++){
+    			
+    			mCursor = db.get_statisics(j);
+    			
+    			if(stringDate.equals(mCursor.getString(1))){
+    				if(mCursor.getString(2).equals("En")){
+    					EnScore++;
+    				}else if(mCursor.getString(2).equals("Math")){
+    					MathScore++;
+      				}else if(mCursor.getString(2).equals("Physical")){
+      					PhysicalScore++;
+      				}
+    			}
+    		}
+    		En[i] = EnScore;;
+    		Math[i] = MathScore;
+    		Physical[i] = PhysicalScore;
+    	}
+    	
+    	return 0;
     }
 }

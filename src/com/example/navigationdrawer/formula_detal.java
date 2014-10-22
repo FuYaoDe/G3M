@@ -41,7 +41,7 @@ public class formula_detal  extends Activity {
 			if(Main1.getInt("SelectTab")==1){
 				db.set_statistics_data("Math");
 			}else{
-				db.set_statistics_data("physics");
+				db.set_statistics_data("Physics");
 			}
 		}
 		

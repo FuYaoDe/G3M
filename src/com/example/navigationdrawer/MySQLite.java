@@ -189,6 +189,9 @@ public class MySQLite extends SQLiteOpenHelper{
     }
     public Cursor get_statisics(long id) throws SQLException{
     	Cursor mCursor = db.query(STATISTICS_DATA_TABLE_NAME, new String[] {_ID, DATA_TIME, KIND}, _ID + "=" + id, null, null, null, null, null);
+    	 if (mCursor != null) {
+    		 mCursor.moveToFirst();
+	     }
     	return mCursor;
     }
     public int maxID(int choes){
@@ -203,6 +206,8 @@ public class MySQLite extends SQLiteOpenHelper{
    		query = "SELECT MAX(_id) AS max_id FROM old_eng_table";
    	else if(choes == 5)
    		query = "SELECT MAX(_id) AS max_id FROM old_math_table";
+   	else if(choes == 6)
+   		query = "SELECT MAX(_id) AS max_id FROM statistics_data";
    	else 
    		query = "SELECT MAX(_id) AS max_id FROM old_physics_table";
    	Cursor cursor = db.rawQuery(query, null);

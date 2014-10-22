@@ -141,7 +141,7 @@ public class Notification extends IntentService{
 			formula = cursor_math.getString(1);
 			bmp = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(cursor_math.getString(2), "drawable", "com.example.navigationdrawer"));
 			//¼Æ¾Ç 
-			kind = "math";
+			kind = "Math";
 	        bundle.putInt("SelectTab",1);
 	        bundle.putInt("Selectid",math_count.now_id);
 	        bundle.putBoolean("call", true);
@@ -158,7 +158,7 @@ public class Notification extends IntentService{
 			formula = cursor_physics.getString(1);
 			bmp = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(cursor_physics.getString(2), "drawable", "com.example.navigationdrawer"));
 			
-			kind = "physics";
+			kind = "Physics";
 	        bundle.putInt("SelectTab",2);
 	        bundle.putInt("Selectid",physics_count.now_id);
 	        bundle.putBoolean("call", true);
