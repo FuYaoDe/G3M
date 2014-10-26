@@ -18,6 +18,7 @@ import android.app.ActionBar.LayoutParams;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Paint.Align;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -33,10 +34,14 @@ public class FragmentStatistics extends Fragment {
  
 	private MySQLite db=null;
 	private int maxID = 0;
-	private double[] En = new double[7];;
-	private double[] Math = new double[7];;
-	private double[] Physical = new double[7];;
+	private double[] En = new double[7];
+	private double[] Math = new double[7];
+	private double[] Physical = new double[7];
+	private double[] EnTest = new double[7];
+	private double[] MathTest = new double[7];
+	private double[] PhysicalTest = new double[7];
 	private double[] Date = new double[] {0,1,2,3,4,5,6};
+	private String[] dateString = new String[7];
     @Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -64,8 +69,12 @@ public class FragmentStatistics extends Fragment {
         LinearLayout L1 = (LinearLayout) root.findViewById(R.id.L1);
         LinearLayout L2 = (LinearLayout) root.findViewById(R.id.L2);
         String[] titles = new String[] { "英文", "數學", "物理"}; // 定義折線的名稱
+        
         List<double[]> x = new ArrayList<double[]>(); // 點的x坐標
         List<double[]> y = new ArrayList<double[]>(); // 點的y坐標
+        
+        List<double[]> x_test = new ArrayList<double[]>(); // 點的x坐標
+        List<double[]> y_test = new ArrayList<double[]>(); // 點的y坐標
         
         // 數值X,Y坐標值輸入
         x.add(Date); //英文
@@ -77,21 +86,28 @@ public class FragmentStatistics extends Fragment {
         x.add(Date);//物理
         y.add(Physical); //物理
         
-        XYMultipleSeriesDataset dataset = buildDatset(titles, x, y); // 儲存座標值
-
+        
+        XYMultipleSeriesDataset dataset = buildDatset(titles, x, y); // 推播
+        
+        XYMultipleSeriesDataset dataset_test = buildDatset(titles, x, y); // 測驗
+        
         int[] colors = new int[] { Color.BLUE, Color.GREEN, Color.RED};// 折線的顏色
         PointStyle[] styles = new PointStyle[] { PointStyle.CIRCLE, PointStyle.CIRCLE, PointStyle.CIRCLE}; // 折線點的形狀
         XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles, true);
-
-        setChartSettings(renderer, "推播練習次數", "X軸名稱", "Y軸名稱", Date[0], Date[6], 0, 25, Color.BLACK);// 定義折線圖
+        XYMultipleSeriesRenderer renderer_test = buildRenderer(colors, styles, true);
+        //
+        setChartSettings(renderer, "推播練習次數", "日期", "次數", Date[0], Date[6], 0, 25, Color.BLACK);// 定義折線圖
         
         GraphicalView chart =(GraphicalView)ChartFactory.getLineChartView(getActivity(), dataset, renderer);
         //setContentView(chart);
         android.view.ViewGroup.LayoutParams params = L1.getLayoutParams();
         	params.height = textsize(250);
         L1.addView(chart);
+        //
         
-        GraphicalView chart2 =(GraphicalView)ChartFactory.getLineChartView(getActivity(), dataset, renderer);
+        setChartSettings(renderer_test, "測驗練習次數", "日期", "次數", Date[0], Date[6], 0, 25, Color.BLACK);
+        
+        GraphicalView chart2 =(GraphicalView)ChartFactory.getLineChartView(getActivity(), dataset_test, renderer_test);
         android.view.ViewGroup.LayoutParams params2 = L2.getLayoutParams();
     		params2.height = textsize(250);
         L2.addView(chart2);
@@ -128,7 +144,13 @@ public class FragmentStatistics extends Fragment {
         renderer.setZoomEnabled(true, false); //讓x能縮放 Y軸無法縮放
         //renderer.setXLabels(0); //自定義X軸座標名稱
         renderer.setMargins(new int[] {textsize(30), textsize(30), textsize(30),textsize(20)});  //上左下右邊距
-
+        
+        for (int i = 0; i < dateString.length; i++) 
+        { 
+        renderer.addTextLabel(i, dateString[i]);
+        }
+        renderer.setXLabelsAlign(Align.CENTER);
+        renderer.setXLabels(0);
     }
 
     // 定義折線圖的格式
@@ -178,25 +200,40 @@ public class FragmentStatistics extends Fragment {
     	Log.d("maxID", ""+maxID);
     	SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     	String stringDate;
+    	SimpleDateFormat mSimpleDateFormat_MD = new SimpleDateFormat("MM-dd");
+    	String stringDate_MD;
     	double doubleDate;
     	Date mDate = new Date(System.currentTimeMillis());
+    	Date mDate_MD = new Date(System.currentTimeMillis());
     	Date oldDate;
+    	Date oldDate_MD;
     	Calendar mCalendar = Calendar.getInstance();
     	mCalendar.setTime(mDate);
+    	Calendar mCalendar_MD = Calendar.getInstance();
+    	mCalendar_MD.setTime(mDate_MD);
     	Cursor mCursor;
     	int EnScore = 0;
     	int MathScore = 0;
     	int PhysicalScore = 0;
+    	int EnScoreTest = 0;
+    	int MathScoreTest = 0;
+    	int PhysicalScoreTest = 0;
     	// x = date ; y = point ;
     	
     	for(int i=0 ; i<7 ; i++){
     		mCalendar.add(Calendar.DATE, -i);
-    		oldDate = mCalendar.getTime();
+    		mCalendar_MD.add(Calendar.DATE, -i);
+    		oldDate = mCalendar_MD.getTime();
+    		oldDate_MD = mCalendar.getTime();
     		stringDate = mSimpleDateFormat.format(oldDate);
-    		//Date[i] = Double.parseDouble(stringDate.replaceAll("-", ""));
+    		stringDate_MD = mSimpleDateFormat_MD.format(oldDate_MD);
+    		dateString[i] = stringDate_MD.replaceAll("-", "/");
     		EnScore = 0;
     		MathScore = 0;
     		PhysicalScore = 0;
+    		EnScoreTest = 0;
+        	MathScoreTest = 0;
+        	PhysicalScoreTest = 0;
     		for(int j=1 ; j<=maxID ; j++){
     			
     			mCursor = db.get_statisics(j);
@@ -206,14 +243,24 @@ public class FragmentStatistics extends Fragment {
     					EnScore++;
     				}else if(mCursor.getString(2).equals("Math")){
     					MathScore++;
-      				}else if(mCursor.getString(2).equals("Physical")){
+      				}else if(mCursor.getString(2).equals("Physics")){
       					PhysicalScore++;
+      				}else if(mCursor.getString(2).equals("Test_En")){
+      					EnScoreTest++;
+    				}else if(mCursor.getString(2).equals("Test_Math")){
+      					MathScoreTest++;
+      				}else if(mCursor.getString(2).equals("Test_Physics")){
+      					PhysicalScoreTest++;
       				}
     			}
     		}
-    		En[i] = EnScore;;
+    		En[i] = EnScore;
     		Math[i] = MathScore;
     		Physical[i] = PhysicalScore;
+    		Log.d("Physical"+i, stringDate+PhysicalScore);
+    		EnTest[i] = EnScoreTest;
+    		MathTest[i] = MathScoreTest;
+    		PhysicalTest[i] = PhysicalScoreTest;
     	}
     	
     	return 0;
