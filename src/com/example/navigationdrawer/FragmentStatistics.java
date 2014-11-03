@@ -86,10 +86,18 @@ public class FragmentStatistics extends Fragment {
         x.add(Date);//物理
         y.add(Physical); //物理
         
+        x_test.add(Date); //英文
+        y_test.add(En); //英文
+        
+        x_test.add(Date); //數學
+        y_test.add(Math); //數學
+        
+        x_test.add(Date);//物理
+        y_test.add(Physical); //物理
         
         XYMultipleSeriesDataset dataset = buildDatset(titles, x, y); // 推播
         
-        XYMultipleSeriesDataset dataset_test = buildDatset(titles, x, y); // 測驗
+        XYMultipleSeriesDataset dataset_test = buildDatset(titles, x_test, y_test); // 測驗
         
         int[] colors = new int[] { Color.BLUE, Color.GREEN, Color.RED};// 折線的顏色
         PointStyle[] styles = new PointStyle[] { PointStyle.CIRCLE, PointStyle.CIRCLE, PointStyle.CIRCLE}; // 折線點的形狀
@@ -221,12 +229,18 @@ public class FragmentStatistics extends Fragment {
     	// x = date ; y = point ;
     	
     	for(int i=0 ; i<7 ; i++){
-    		mCalendar.add(Calendar.DATE, -i);
-    		mCalendar_MD.add(Calendar.DATE, -i);
-    		oldDate = mCalendar_MD.getTime();
-    		oldDate_MD = mCalendar.getTime();
+    		if(i == 0){
+    			mCalendar.add(Calendar.DAY_OF_MONTH, 0);
+    		}else{
+    			mCalendar.add(Calendar.DAY_OF_MONTH, -1);
+        		mCalendar_MD.add(Calendar.DAY_OF_MONTH, -1);
+    		}    		
+    		oldDate = mCalendar.getTime();
+    		oldDate_MD = mCalendar_MD.getTime();
     		stringDate = mSimpleDateFormat.format(oldDate);
+    		Log.d("stringDate   --   "+i, stringDate);
     		stringDate_MD = mSimpleDateFormat_MD.format(oldDate_MD);
+    		Log.d("stringDate_MD  --  "+i, stringDate_MD);
     		dateString[i] = stringDate_MD.replaceAll("-", "/");
     		EnScore = 0;
     		MathScore = 0;
@@ -257,7 +271,7 @@ public class FragmentStatistics extends Fragment {
     		En[i] = EnScore;
     		Math[i] = MathScore;
     		Physical[i] = PhysicalScore;
-    		Log.d("Physical"+i, stringDate+PhysicalScore);
+    		//Log.d("Physical"+i, stringDate+PhysicalScore);
     		EnTest[i] = EnScoreTest;
     		MathTest[i] = MathScoreTest;
     		PhysicalTest[i] = PhysicalScoreTest;
