@@ -87,13 +87,13 @@ public class FragmentStatistics extends Fragment {
         y.add(Physical); //物理
         
         x_test.add(Date); //英文
-        y_test.add(En); //英文
+        y_test.add(EnTest); //英文
         
         x_test.add(Date); //數學
-        y_test.add(Math); //數學
+        y_test.add(MathTest); //數學
         
         x_test.add(Date);//物理
-        y_test.add(Physical); //物理
+        y_test.add(PhysicalTest); //物理
         
         XYMultipleSeriesDataset dataset = buildDatset(titles, x, y); // 推播
         
