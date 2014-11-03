@@ -228,8 +228,8 @@ public class FragmentStatistics extends Fragment {
     	int PhysicalScoreTest = 0;
     	// x = date ; y = point ;
     	
-    	for(int i=0 ; i<7 ; i++){
-    		if(i == 0){
+    	for(int i=6 ; i>=0 ; i--){
+    		if(i == 6){
     			mCalendar.add(Calendar.DAY_OF_MONTH, 0);
     		}else{
     			mCalendar.add(Calendar.DAY_OF_MONTH, -1);
@@ -240,7 +240,7 @@ public class FragmentStatistics extends Fragment {
     		stringDate = mSimpleDateFormat.format(oldDate);
     		Log.d("stringDate   --   "+i, stringDate);
     		stringDate_MD = mSimpleDateFormat_MD.format(oldDate_MD);
-    		Log.d("stringDate_MD  --  "+i, stringDate_MD);
+    		//Log.d("stringDate_MD  --  "+i, stringDate_MD);
     		dateString[i] = stringDate_MD.replaceAll("-", "/");
     		EnScore = 0;
     		MathScore = 0;
